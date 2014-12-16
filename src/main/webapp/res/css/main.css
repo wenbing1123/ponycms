@@ -1,0 +1,104 @@
+
+@charset "utf-8";
+
+html,body{}
+
+.x-tree-view .x-tree-node-text {
+	cursor : pointer
+}
+
+/***************loading**********************/
+#loading-mask{
+    background-color:white;
+    height:100%;
+    position:absolute;
+    left:0;
+    top:0;
+    width:100%;
+    z-index:20000;
+}
+#loading{
+    height:auto;
+    position:absolute;
+    left:40%;
+    top:40%;
+    padding:2px;
+    z-index:20001;
+}
+#loading .loading-indicator{
+    background:white;
+    color:#444;
+    font:bold 13px Helvetica, Arial, sans-serif;
+    height:auto;
+    margin:0;
+    padding:10px;
+}
+#loading-msg {
+    font-size: 10px;
+    font-weight: normal;
+}
+
+/***************portal**********************/
+.x-portal-body {
+    padding: 0 0 0 8px;
+}
+.x-portal .x-portal-column {
+    /* columns must have vertical padding to avoid losing dimensions when empty */
+    padding: 8px 8px 0 0;
+}
+.x-portal .x-panel-dd-spacer {
+    border: 2px dashed #99bbe8;
+    background: #f6f6f6;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    margin-bottom: 10px;
+}
+.x-portlet {
+    margin-bottom:10px;
+    padding: 1px;
+}
+.x-portlet .x-panel-body {
+    background: #fff;
+}
+.portlet-content {
+    padding: 10px;
+    font-size: 11px;
+}
+
+/***************tip msg**********************/
+.msg .x-box-mc {
+    font-size:14px;
+}
+#msg-div {
+    position:absolute;
+    left:50%;
+    top:10px;
+    min-width:200px;
+    margin-left:-200px;
+    z-index:20000;
+}
+#msg-div .msg {
+    border-radius: 8px;
+    -moz-border-radius: 8px;
+    background: #F6F6F6;
+    border: 2px solid #ccc;
+    margin-top: 2px;
+    padding: 10px 15px;
+    color: #555;
+}
+#msg-div .msg h3 {
+    margin: 0 0 8px;
+    font-weight: bold;
+    font-size: 15px;
+}
+#msg-div .msg p {
+    margin: 0;
+    color: red;
+}
+
+/***************header**********************/
+#header{
+	height: 64px;
+	background: url(../img/top-bg.png);
+	position: relavite;
+}

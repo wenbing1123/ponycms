@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<desktop cols="3">
+	<panel id="notice"  col="1"/>
+	<panel id="task" 	col="2"/>
+	<panel id="message" col="3"/>
+</desktop>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<panels>
+	<panel id="notice"  title="通知公告" iconCls="" port=""/>
+	<panel id="task"    title="待办任务" iconCls="" port=""/>
+	<panel id="message" title="我的消息" iconCls="" port=""/>
+</panels>

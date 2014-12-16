@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Settings>
+	<!-- 站点名称 -->
+	<Setting name="siteName" value="网上商城系统"/>
+	<!-- 站点地址 -->
+	<Setting name="siteUrl" value="http://localhost"/>
+	<!-- 站点LOGO -->
+	<Setting name="logo" value="/u/image/logo.gif"/>
+	<!-- 公司地址 -->
+	<Setting name="address" value="北京市丰台区七里庄路22号"/>
+	<!-- 联系电话 -->
+	<Setting name="phone" value="400-8888888"/>
+	<!-- 邮政编码 -->
+	<Setting name="zipcode" value="100071"/>
+	<!-- 电子邮箱 -->
+	<Setting name="email" value="wenbing1123@163.com"/>
+	<!-- 备案号 -->
+	<Setting name="certtext" value="京ICP备10000000号"/>
+	<!-- 邮件发送者   -->
+	<Setting name="smtpFromMail" value="wenbing1123@163.com"/>
+	<!-- 邮件发送主机  -->
+	<Setting name="smtpHost" value="smpt.163.com"/>
+	<!-- 邮件发送端口  -->
+	<Setting name="smtpPort" value="23"/>
+	<!-- 邮件发送者用户名   -->
+	<Setting name="smtpUsername" value="wenbing1123"/>
+	<!-- 邮件发送者密码   -->
+	<Setting name="smtpPassword" value="wenbing1123"/>
+	
+</Settings>
