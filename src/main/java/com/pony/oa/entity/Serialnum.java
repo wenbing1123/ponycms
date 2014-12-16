@@ -1,6 +1,5 @@
 package com.pony.oa.entity;
 
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -18,7 +17,7 @@ public class Serialnum extends BaseEntity {
 	private Integer step = 1;
 	private Integer current; //当前值
 	
-	@Column(length=36)
+	@Column(name="_table", length=36)
 	public String getTable() {
 		return table;
 	}
@@ -26,7 +25,7 @@ public class Serialnum extends BaseEntity {
 		this.table = table;
 	}
 	
-	@Column(length=36)
+	@Column(name="_column", length=36)
 	public String getColumn() {
 		return column;
 	}
@@ -34,18 +33,18 @@ public class Serialnum extends BaseEntity {
 		this.column = column;
 	}
 	
-	@Column(length=36)
+	@Column(name="_preffix", length=36)
 	public String getPreffix() {
 		return preffix;
 	}
 	public void setPreffix(String preffix) {
 		this.preffix = preffix;
 	}
+	
+	@Column(name="_start")
 	public Integer getStart() {
 		return start;
 	}
-	
-	@Basic
 	public void setStart(Integer start) {
 		this.start = start;
 	}
@@ -53,12 +52,12 @@ public class Serialnum extends BaseEntity {
 		return step;
 	}
 	
-	@Basic
+	@Column(name="_step")
 	public void setStep(Integer step) {
 		this.step = step;
 	}
 	
-	@Basic
+	@Column(name="_current")
 	public Integer getCurrent() {
 		return current;
 	}

@@ -44,7 +44,7 @@ public class Message extends BaseEntity {
 		this.url = url;
 	}
 	
-	@Column(length=50)
+	@Column(name="_from", length=50)
 	public String getFrom() {
 		return from;
 	}
