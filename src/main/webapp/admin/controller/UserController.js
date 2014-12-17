@@ -1,7 +1,7 @@
 Ext.define('App.controller.UserController', {
     extend: 'Ext.app.Controller',
     
-    views: ['user.IndexView'],
+    views: ['user.IndexView','user.AddView'],
     stores: ['user.UserStore'],
     models: [],
     
@@ -22,6 +22,11 @@ Ext.define('App.controller.UserController', {
 							gridpanel.getStore().proxy.extraParams = form.getForm().getValues( );
 							gridpanel.getStore().load();
 			    		}
+        			});
+        			
+        			var add_btn = gp.down('button[action=add]');
+        			add_btn.on('click',function(){
+        				Ext.widget("UserAddView").show();
         			});
         			
         			var delete_btn = gp.down('button[action=delete]');
