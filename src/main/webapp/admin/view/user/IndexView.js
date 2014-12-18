@@ -52,10 +52,10 @@ Ext.define('App.view.user.IndexView', {
             	return '<div class="success" style="display:block;width:16px;height:16px;"></span>';
             }},
             {header: '绑定Ip', dataIndex: 'ipAddress', width: 100},
-            {header: '最后登录Ip', dataIndex: 'lastLoginIp', width: 100},
-            {header: '最后登录时间', dataIndex: 'lastLoginDate', width: 150},
             {header: 'Email', dataIndex: 'description', width: 200},
-            {header: '联系电话', dataIndex: 'description', flex: 1},
+            {header: '联系电话', dataIndex: 'description', width: 150},
+            {header: '最后登录Ip', dataIndex: 'lastLoginIp', width: 100},
+            {header: '最后登录时间', dataIndex: 'lastLoginDate', flex: 1},
             {header: '操作', width: 100, renderer: function(){
             	var opt = '<a href="javascript:;" action="update">修改</a>\t';
             	opt += '<a href="javascript:;" action="remove">删除</a>';

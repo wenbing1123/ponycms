@@ -5,6 +5,7 @@
 	<#include "common/head.ftl"/>
 	<title><@p.message code="Admin.Title"/></title>
 	<link rel="stylesheet" type="text/css" href="${base}/extjs4/resources/css/ext-all.css"/>
+	<link rel="stylesheet" type="text/css" href="${base}/res/css/ItemSelector.css"/>
 	<link rel="stylesheet" type="text/css" href="${base}/res/css/icon.css"/>
 	<link rel="stylesheet" type="text/css" href="${base}/res/css/main.css"/>
 </head>

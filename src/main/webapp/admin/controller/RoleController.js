@@ -53,7 +53,7 @@ Ext.define('App.controller.RoleController', {
                    		}
         			});
         			
-        			 //表格事件
+        			//表格事件
                     gridpanel.on('cellclick', function(grid, td, cellIndex, record, tr, rowIndex, e) {
                    		var aTag = e.getTarget('a');
                    		if(aTag != undefined){

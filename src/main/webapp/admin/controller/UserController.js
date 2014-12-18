@@ -6,6 +6,8 @@ Ext.define('App.controller.UserController', {
     models: [],
     
     init: function() {
+    	
+    	var c = this;
         
         this.control({
         	
@@ -40,7 +42,7 @@ Ext.define('App.controller.UserController', {
     								ids += ',';
     							}
     							ids = ids.substring(0,ids.length-1);
-    							App.ajax('log/remove.do', function(result){
+    							App.ajax('user/remove.do', function(result){
     								App.msg.tip(result.message);
     								if(result.success){
     	        						gridpanel.getStore().load();
@@ -52,8 +54,61 @@ Ext.define('App.controller.UserController', {
                    		}
         			});
         			
+        			//表格事件
+                    gridpanel.on('cellclick', function(grid, td, cellIndex, record, tr, rowIndex, e) {
+                   		var aTag = e.getTarget('a');
+                   		if(aTag != undefined){
+	                   		var opt = aTag.attributes['action'].nodeValue;
+	                   		if(opt == 'update'){
+	                   			
+	                   		}
+	                   		if(opt == 'remove'){
+	                   			App.msg.confirm('确定要删除选定记录？',function(){
+	                   				App.ajax('user/remove.do', function(result){
+	    								App.msg.tip(result.message);
+	    								if(result.success){
+	    	        						gridpanel.getStore().load();
+	    	        					}
+	    							},{'ids': record.data.id});
+	            				});
+	                   		}
+                   		}
+                    });
+        			
+        			
+        		}
+        	},
+        	
+        	'UserAddView': {
+        		render: function(gp){ //整个页面渲染完成
+        			var domaincombo = gp.down('domaincombo');
+        			var groupcombo = gp.down('groupcombo');
+        			
+        			domaincombo.on('select',function(){
+        				var domainId = domaincombo.getValue();
+        				groupcombo.clearValue();
+        				groupcombo.getStore().load({params:{domainId:domainId}});
+        			});
+        			
+        			gp.down('button[action=close]').on('click',function(){
+        				gp.hide();
+        			});
+        			gp.down('button[action=save]').on('click',function(){
+        				var form = gp.down('form');
+						if(form.getForm().isValid()){
+							form.getForm().submit({
+			    				url: 'user/save.do',
+			    				success: function(form, action){
+			    					App.msg.tip(action.result.message);
+			    					gp.hide();
+			    					c.getStore('user.UserStore').load();
+			    				}
+			    			});
+						}
+        			});
         		}
         	}
+        	
         });
         
     }

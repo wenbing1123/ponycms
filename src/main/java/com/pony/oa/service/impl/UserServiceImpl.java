@@ -42,7 +42,13 @@ public class UserServiceImpl implements IUserService {
 	@Transactional(readOnly=false)
 	public void save(User user) {
 		Assert.notNull(user);
-		
+		String enctypePwd = SecurityUtils.encryptPassword(user.getUsername(), defaultPassword);
+		user.setPassword(enctypePwd);
+		user.setLocked(false);
+		user.setUnlockTime(null);
+		user.setFailureCount(0);
+		user.setLastLoginDate(null);
+		user.setLastLoginIp(null);
 		dao.save(user);
 	}
 
@@ -50,7 +56,17 @@ public class UserServiceImpl implements IUserService {
 	public void update(User user) {
 		Assert.notNull(user);
 		Assert.notNull(user.getId());
-		
+		User entity = dao.find(User.class, user.getId());
+		entity.setEnabled(user.getEnabled());
+		entity.setIpAddress(user.getIpAddress());
+		entity.setEmail(user.getEmail());
+		entity.setPhone(user.getPhone());
+		entity.setDomain(user.getDomain()); //通过@InitBinder进行id到entity的转换
+		entity.setGroup(user.getGroup());
+		if(entity.getRoles()!=null && entity.getRoles().size()>0){
+			entity.getRoles().clear(); //配置角色
+		}
+		entity.setRoles(user.getRoles());
 		dao.update(user);
 	}
 

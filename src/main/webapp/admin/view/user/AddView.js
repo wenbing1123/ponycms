@@ -1,7 +1,7 @@
 Ext.define('App.view.user.AddView', {
     extend: 'Ext.window.Window',    
     alias: 'widget.UserAddView',
-    
+    requires: ['App.ux.DomainComboBox','App.ux.GroupComboBox','App.ux.form.MultiSelect','App.ux.form.ItemSelector'],
     title: '创建用户',
     iconCls: 'add',
     y: 100,
@@ -56,7 +56,7 @@ Ext.define('App.view.user.AddView', {
 		    },{ 
 		        name: 'phone',
 		        fieldLabel: '联系电话',
-		        vtype: 'ipv4',
+		        vtype: 'mobilephone',
 		        anchor: '50%'
 		    }]
 		},{
@@ -69,14 +69,44 @@ Ext.define('App.view.user.AddView', {
 			    labelAlign: 'right'
 			},
 			items: [{
-				xtype: 'combo',
-				fieldLabel: '所属域组',
-				anchor: '50%'
+		        layout: 'column',
+		        xtype: 'panel',
+		        border: false,
+		        style: {
+		        	marginBottom: '5px'
+		        },
+		        defaults:{
+		        	anchor: '50%',
+		        	labelAlign: 'right',
+		        	labelWidth: 60
+		        },
+		        items: [{
+					xtype: 'domaincombo',
+					name: 'domain',
+					fieldLabel: '所属域'
+				},{
+					xtype: 'groupcombo',
+					name: 'group',
+					fieldLabel: '所属组'
+				}],
+	            anchor: '100%'
 			},{
-				xtype: 'combo',
+				xtype: 'itemselector',
 				fieldLabel: '拥有角色',
-				multiSelect: true,
-				anchor: '100%'
+				name: 'roles',
+				anchor: '100%',
+				height: 210,
+				store : Ext.create('Ext.data.Store',{
+					fields: ['id','name'],
+					autoLoad: true,
+					proxy: {
+						type: 'ajax',   
+				        url: 'user/getRoles.do',
+						reader: 'json'
+					}
+				}),
+				valueField: 'id',
+	            displayField: 'name'
 			}]
 		}]
     }],

@@ -28,7 +28,7 @@ public class User extends BaseEntity{
 	private	transient String password;
 	private	Boolean	enabled;		//是否启用，由管理员控制
 	private	Boolean	locked;			//是否锁定，由程序根据登录情况控制
-	private Date 	lockedtime; 	//锁定时间
+	private Date 	unlockTime; 	//解锁时间，由锁定时间+锁定时长得到
 	private Integer failureCount; 	//登录失败次数
 	private	String	ipAddress;
 	private	String	email;
@@ -73,11 +73,11 @@ public class User extends BaseEntity{
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	public Date getLockedtime() {
-		return lockedtime;
+	public Date getUnlockTime() {
+		return unlockTime;
 	}
-	public void setLockedtime(Date lockedtime) {
-		this.lockedtime = lockedtime;
+	public void setUnlockTime(Date unlockTime) {
+		this.unlockTime = unlockTime;
 	}
 	
 	@Basic
@@ -146,7 +146,7 @@ public class User extends BaseEntity{
 		this.group = group;
 	}
 	
-	@ManyToMany(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
+	@ManyToMany(fetch=FetchType.LAZY) //删除用户不级联删除角色
 	@JoinTable(name="oa_user_role"
 		,joinColumns=@JoinColumn(name="user_id")
 		,inverseJoinColumns=@JoinColumn(name="role_id"))

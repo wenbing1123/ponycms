@@ -1,7 +1,7 @@
 /**
  * A Picker field that contains a tree panel on its popup, enabling selection of tree nodes.
  */
-Ext.define('App.ux.TreePicker', {
+Ext.define('App.ux.form.TreePicker', {
     extend: 'Ext.form.field.Picker',
     xtype: 'treepicker',
     
@@ -80,6 +80,7 @@ Ext.define('App.ux.TreePicker', {
         var me = this,
             picker = new Ext.tree.Panel({
                 shrinkWrapDock: 2,
+                rootVisible: me.rootVisible,
                 store: me.store,
                 floating: true,
                 displayField: me.displayField,
@@ -278,6 +279,10 @@ Ext.define('App.ux.TreePicker', {
         if (type === 'edit' && modifiedFieldNames && Ext.Array.contains(modifiedFieldNames, display) && this.value === rec.getId()) {
             this.setRawValue(rec.get(display));
         }
+    },
+    
+    clearValue: function() {
+        this.setValue([]);
     }
 
 });
