@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -31,6 +30,7 @@ public class User extends BaseEntity{
 	private Date 	unlockTime; 	//解锁时间，由锁定时间+锁定时长得到
 	private Integer failureCount; 	//登录失败次数
 	private	String	ipAddress;
+	private String	fullname;	//全名，姓名
 	private	String	email;
 	private	String	phone;
 	private	String	lastLoginIp;
@@ -94,6 +94,14 @@ public class User extends BaseEntity{
 	}
 	public void setIpAddress(String ipAddress) {
 		this.ipAddress = ipAddress;
+	}
+	
+	@Column(length=50)
+	public String getFullname() {
+		return fullname;
+	}
+	public void setFullname(String fullname) {
+		this.fullname = fullname;
 	}
 	
 	@Column(length=36)

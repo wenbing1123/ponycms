@@ -89,6 +89,7 @@ Ext.define('App.ux.form.TreePicker', {
                 maxHeight: me.maxPickerHeight,
                 manageHeight: false,
                 shadow: false,
+                tbar: me.tbar,
                 listeners: {
                     scope: me,
                     itemclick: me.onItemClick

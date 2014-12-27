@@ -2,7 +2,7 @@ Ext.define('App.controller.DomainController', {
     extend: 'Ext.app.Controller',
 
     views: [
-       'domain.IndexView'
+       'domain.IndexView','domain.AddView'
     ],
     
     stores: ['domain.DomainStore'],
@@ -20,7 +20,7 @@ Ext.define('App.controller.DomainController', {
         			treepanel.getStore().load();
         			
         			gp.down('button[action=add]').on('click',function(){
-                       
+        				Ext.widget("DomainAddView").show();
                     });
                     gp.down('button[action=refresh]').on('click',function(){
                        treepanel.getStore().load();

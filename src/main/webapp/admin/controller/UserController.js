@@ -1,7 +1,7 @@
 Ext.define('App.controller.UserController', {
     extend: 'Ext.app.Controller',
     
-    views: ['user.IndexView','user.AddView'],
+    views: ['user.IndexView','user.AddView','user.EditView','user.ResetPwdView'],
     stores: ['user.UserStore'],
     models: [],
     
@@ -21,6 +21,29 @@ Ext.define('App.controller.UserController', {
         			search_btn.on('click',function(){
         				var form = gp.down('form');
         				if(form.getForm().isValid()){
+        					var combo = form.down('combo[name=status]');
+        					var status = combo.getValue();
+        					if(status==1){
+        						form.getForm().setValues({
+        							search_EQB_enabled: true,
+        							search_EQB_locked: null
+        						});
+        					}else if(status==2){
+        						form.getForm().setValues({
+        							search_EQB_enabled: true,
+        							search_EQB_locked: true
+        						});
+        					}else if(status==3){
+        						form.getForm().setValues({
+        							search_EQB_enabled: false,
+        							search_EQB_locked: null
+        						});
+        					}else{
+        						form.getForm().setValues({
+        							search_EQB_enabled: null,
+        							search_EQB_locked: null
+        						});
+        					}
 							gridpanel.getStore().proxy.extraParams = form.getForm().getValues( );
 							gridpanel.getStore().load();
 			    		}
@@ -59,8 +82,26 @@ Ext.define('App.controller.UserController', {
                    		var aTag = e.getTarget('a');
                    		if(aTag != undefined){
 	                   		var opt = aTag.attributes['action'].nodeValue;
+	                   		if(opt == 'reset'){
+	                   			var w = Ext.widget("UserResetPwdView");
+	                   			w.show();
+	                   			w.down('form').loadRecord(record);
+	                   		}
 	                   		if(opt == 'update'){
-	                   			
+	                   			var w = Ext.widget("UserEditView");
+	                   			w.show();
+	                   			f = w.down('form');
+	                   			f.loadRecord(record);
+	                   			App.ajax('user/getUserRoles.do', function(data){
+	                   				var groupcombo = f.down('groupcombo');
+	                   				groupcombo.clearValue();
+	                				groupcombo.getStore().load({params:{domainId:data.domainId}});
+	                   				f.getForm().setValues({
+	                   					domain: data.domainId,
+	                   					group:	data.groupId,
+	                   					roles:	data.roleIds
+	                   				});
+    							},{'id': record.data.id});
 	                   		}
 	                   		if(opt == 'remove'){
 	                   			App.msg.confirm('确定要删除选定记录？',function(){
@@ -102,6 +143,60 @@ Ext.define('App.controller.UserController', {
 			    					App.msg.tip(action.result.message);
 			    					gp.hide();
 			    					c.getStore('user.UserStore').load();
+			    				}
+			    			});
+						}
+        			});
+        		}
+        	},
+        	
+        	'UserEditView': {
+        		render: function(gp){ //整个页面渲染完成
+        			var domaincombo = gp.down('domaincombo');
+        			var groupcombo = gp.down('groupcombo');
+        			
+        			domaincombo.on('select',function(){
+        				var domainId = domaincombo.getValue();
+        				groupcombo.clearValue();
+        				groupcombo.getStore().load({params:{domainId:domainId}});
+        				groupcombo.setValue(c.userGroupId);
+        			});
+        			
+        			gp.down('button[action=close]').on('click',function(){
+        				gp.hide();
+        			});
+        			gp.down('button[action=save]').on('click',function(){
+        				var form = gp.down('form');
+						if(form.getForm().isValid()){
+							form.getForm().submit({
+			    				url: 'user/update.do',
+			    				success: function(form, action){
+			    					App.msg.tip(action.result.message);
+			    					gp.hide();
+			    					c.getStore('user.UserStore').load();
+			    				}
+			    			});
+						}
+        			});
+        		}
+        	},
+        	
+        	'UserResetPwdView' : {
+        		render: function(gp){ //整个页面渲染完成
+        			gp.down('button[action=close]').on('click',function(){
+        				gp.hide();
+        			});
+        			gp.down('button[action=ok]').on('click',function(){
+        				var form = gp.down('form');
+						if(form.getForm().isValid()){
+							form.getForm().submit({
+			    				url: 'user/resetPassword.do',
+			    				success: function(form, action){
+			    					if(action.result.success){
+			    						gp.down('label').setText('密码重置成功，密码为：'+action.result.object);
+			    					}else{
+			    						gp.down('label').setText('密码重置失败，错误为：'+action.result.message);
+			    					}
 			    				}
 			    			});
 						}

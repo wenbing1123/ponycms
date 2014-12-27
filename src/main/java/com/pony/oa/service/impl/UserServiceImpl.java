@@ -44,6 +44,7 @@ public class UserServiceImpl implements IUserService {
 		Assert.notNull(user);
 		String enctypePwd = SecurityUtils.encryptPassword(user.getUsername(), defaultPassword);
 		user.setPassword(enctypePwd);
+		user.setEnabled(user.getEnabled()==null?false:user.getEnabled());
 		user.setLocked(false);
 		user.setUnlockTime(null);
 		user.setFailureCount(0);
@@ -57,8 +58,9 @@ public class UserServiceImpl implements IUserService {
 		Assert.notNull(user);
 		Assert.notNull(user.getId());
 		User entity = dao.find(User.class, user.getId());
-		entity.setEnabled(user.getEnabled());
+		entity.setEnabled(user.getEnabled()==null?false:user.getEnabled());
 		entity.setIpAddress(user.getIpAddress());
+		entity.setFullname(user.getFullname());
 		entity.setEmail(user.getEmail());
 		entity.setPhone(user.getPhone());
 		entity.setDomain(user.getDomain()); //通过@InitBinder进行id到entity的转换
@@ -67,7 +69,7 @@ public class UserServiceImpl implements IUserService {
 			entity.getRoles().clear(); //配置角色
 		}
 		entity.setRoles(user.getRoles());
-		dao.update(user);
+		dao.update(entity);
 	}
 
 	@Transactional(readOnly=false)
@@ -161,7 +163,7 @@ public class UserServiceImpl implements IUserService {
 		Assert.notNull(id);
 		User entity = dao.find(User.class, id);
 		if(random){ //随机密码
-			String originPassword = String.valueOf(RandomUtils.produceNumber(6));
+			String originPassword = String.valueOf(RandomUtils.randomPwd(6));
 			String enctype = SecurityUtils.encryptPassword(entity.getUsername(), originPassword);
 			entity.setPassword(enctype);
 			dao.update(entity);
@@ -169,10 +171,9 @@ public class UserServiceImpl implements IUserService {
 		}else{ //默认密码
 			String enctype = SecurityUtils.encryptPassword(entity.getUsername(), defaultPassword);
 			entity.setPassword(enctype);
+			dao.update(entity);
 			return defaultPassword;
 		}
-		
-		
 	}
 
 }

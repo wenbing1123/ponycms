@@ -46,7 +46,7 @@ public class RoleController {
 		return moduleService.loadAll(modules,true);
 	}
 	
-	@RequestMapping("/save")
+	@RequestMapping("/save.do")
 	public @ResponseBody Result save(Role role,String[] modules,String[] perms) throws Exception{
 		if(role.getIsSuper() == null || !role.getIsSuper()){ //非超级管理员
 			if(modules != null && modules.length>0){
@@ -66,7 +66,7 @@ public class RoleController {
 		return Result.success();
 	}
 	
-	@RequestMapping("/update")
+	@RequestMapping("/update.do")
 	public @ResponseBody Result update(Role role,String[] modules,String[] perms) {
 		Role entity = crudService.find(Role.class, role.getId());
 		entity.setName(role.getName());
@@ -100,7 +100,7 @@ public class RoleController {
 		return Result.success();
 	}
 	
-	@RequestMapping("/remove")
+	@RequestMapping("/remove.do")
 	public @ResponseBody Result remove(Long[] ids) throws Exception{
 		crudService.remove(Role.class, ids);
 		return Result.success();

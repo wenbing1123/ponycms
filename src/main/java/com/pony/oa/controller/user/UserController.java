@@ -1,13 +1,14 @@
 package com.pony.oa.controller.user;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomCollectionEditor;
 import org.springframework.beans.propertyeditors.PropertiesEditor;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,25 +35,25 @@ public class UserController {
 		return crudService.findPage(User.class);
 	}
 	
-	@RequestMapping("/save")
+	@RequestMapping("/save.do")
 	public @ResponseBody Result save(User user){
 		userService.save(user);
 		return Result.success();
 	}
 	
-	@RequestMapping("/update")
+	@RequestMapping("/update.do")
 	public @ResponseBody Result update(User user){
 		userService.update(user);
 		return Result.success();
 	}
 	
-	@RequestMapping("/remove")
+	@RequestMapping("/remove.do")
 	public @ResponseBody Result remove(Long[] ids) throws Exception{
 		crudService.remove(User.class, ids);
 		return Result.success();
 	}
 	
-	@RequestMapping("/resetPassword")
+	@RequestMapping("/resetPassword.do")
 	public @ResponseBody Result resetPassword(Long id, Boolean random){
 		String password = userService.resetPassword(id, random);
 		Result result = Result.success();
@@ -60,9 +61,33 @@ public class UserController {
 		return result;
 	}
 	
-	@RequestMapping("/getRoles")
+	@RequestMapping("/getRoles.do")
 	public @ResponseBody List<Role> getRoles(){
 		return crudService.findAll(Role.class);
+	}
+	
+	@RequestMapping("/getUserRoles.do")
+	public @ResponseBody String getUserRoles(Long id){
+		User user = userService.find(id);
+		StringBuilder builder = new StringBuilder("{");
+		if(user.getDomain() != null){
+			builder.append("\"domainId\"").append(":").append("\""+user.getDomain().getId()+"\"").append(",");
+		}
+		if(user.getGroup() != null){
+			builder.append("\"groupId\"").append(":").append("\""+user.getGroup().getId()+"\"").append(",");
+		}
+		Set<Role> roles = user.getRoles();
+		if(roles != null && roles.size() > 0){
+			builder.append("\"roleIds\":[");
+			for (Role role : roles) {
+				builder.append("\""+role.getId()+"\"").append(",");
+			}
+			builder.deleteCharAt(builder.lastIndexOf(","));
+			builder.append("],");
+		}
+		builder.deleteCharAt(builder.lastIndexOf(","));
+		builder.append("}");
+		return builder.toString();
 	}
 	
 	//把页面的请求参数变成DOMAIN的属性
@@ -72,7 +97,7 @@ public class UserController {
 
 			public void setAsText(String text) throws IllegalArgumentException {
 				String input = (text != null ? text.trim() : null);
-				if(!StringUtils.hasLength(input)){
+				if(StringUtils.isBlank(input)){
 					setValue(null);
 				}else{
 					Domain domain = crudService.find(Domain.class, Long.valueOf(input));
@@ -85,7 +110,7 @@ public class UserController {
 
 			public void setAsText(String text) throws IllegalArgumentException {
 				String input = (text != null ? text.trim() : null);
-				if(!StringUtils.hasLength(input)){
+				if(StringUtils.isBlank(input)){
 					setValue(null);
 				}else{
 					Group group = crudService.find(Group.class, Long.valueOf(input));
@@ -96,6 +121,13 @@ public class UserController {
 		});
 		binder.registerCustomEditor(Set.class, "roles",new CustomCollectionEditor(Set.class){
 
+			//过滤掉空字符串及null,并根据规则转换成list
+			public void setAsText(String text) throws IllegalArgumentException {
+				if(StringUtils.isNotBlank(text)){
+					setValue(Arrays.asList(text.split(",")));
+				}
+			}
+			
 			protected Object convertElement(Object element) {
 				Long id = null;
 				

@@ -96,9 +96,9 @@ Ext.define('App.view.log.IndexView', {
             {header: 'Url', dataIndex: 'url', width: 150},
             {header: '状态', dataIndex: 'success', width: 40, renderer: function(value){
             	if(value==undefined || value==true){
-            		return '<div class="success" style="display:block;width:16px;height:16px;"></span>';
+            		return '<div class="icon success"></span>';
             	}else{
-            		return '<div class="warn" style="display:block;width:16px;height:16px;"></span>';
+            		return '<div class="icon warn"></span>';
             	}
             }},
             {header: '详细', dataIndex: 'message', flex: 1}

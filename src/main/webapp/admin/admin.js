@@ -119,7 +119,7 @@ Ext.apply(Ext.form.field.VTypes, {
     excelText:'请选择正确的excel文件',
     mobilephone:function(val,field){  
         try{  
-            if(/(^0?[1][35][0-9]{9}$)/.test(val))  
+            if(/^(13[0-9]|15[0-9]|18[0-9])[0-9]{8}$/.test(val))
                 return true;  
             return false;  
         }catch(e){  

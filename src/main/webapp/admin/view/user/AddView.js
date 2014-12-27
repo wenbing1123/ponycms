@@ -6,7 +6,7 @@ Ext.define('App.view.user.AddView', {
     iconCls: 'add',
     y: 100,
     width: 600,
-    height: 500,
+    height: 530,
     modal: true,
     resizable: false,
     border: false,
@@ -47,6 +47,10 @@ Ext.define('App.view.user.AddView', {
 		        name: 'ipAddress',
 		        fieldLabel: '绑定IP',
 		        vtype: 'ipv4',
+		        anchor: '50%'
+		    },{ 
+		        name: 'fullname',
+		        fieldLabel: '真实姓名',
 		        anchor: '50%'
 		    },{ 
 		        name: 'email',

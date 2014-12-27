@@ -20,6 +20,24 @@ Ext.define('App.view.user.IndexView', {
             name: 'search_LIKES_username',
             width: 150
         },{
+            fieldLabel: '状态',
+            name: 'status',
+            width: 150,
+            xtype: 'combo',
+            store: Ext.create('Ext.data.ArrayStore',{
+            	fields: ['value','label'],
+            	data: [[1,'启用'],[2,'锁定'],[3,'禁用']]
+            }),
+            valueField: 'value',
+            displayField: 'label',
+            emptyText: '请选择...'
+        },{
+        	xtype: 'hiddenfield',
+        	name: 'search_EQB_enabled'
+        },{
+        	xtype: 'hiddenfield',
+        	name: 'search_EQB_locked'
+        },{
         	labelWidth: 20,
             fieldLabel: 'Ip',
             name: 'search_LIKES_ipAddress',
@@ -48,16 +66,23 @@ Ext.define('App.view.user.IndexView', {
         columns: [
             {xtype: 'rownumberer', text: '序号', width: 36},
             {header: '用户名', dataIndex: 'username', width: 100},
-            {header: '状态', dataIndex: '', width: 50, renderer:function(value){
-            	return '<div class="success" style="display:block;width:16px;height:16px;"></span>';
+            {header: '状态', dataIndex: 'status', width: 50, renderer:function(value){
+            	if(value==1)
+            		return '<div class="icon success"></span>';
+            	if(value==2)
+            		return '<div class="icon lock"></span>';
+            	if(value==3)
+            		return '<div class="icon error"></span>';
             }},
             {header: '绑定Ip', dataIndex: 'ipAddress', width: 100},
-            {header: 'Email', dataIndex: 'description', width: 200},
-            {header: '联系电话', dataIndex: 'description', width: 150},
+            {header: 'Email', dataIndex: 'email', width: 150},
+            {header: '真实姓名', dataIndex: 'fullname', width: 100},
+            {header: '联系电话', dataIndex: 'phone', width: 100},
             {header: '最后登录Ip', dataIndex: 'lastLoginIp', width: 100},
             {header: '最后登录时间', dataIndex: 'lastLoginDate', flex: 1},
-            {header: '操作', width: 100, renderer: function(){
-            	var opt = '<a href="javascript:;" action="update">修改</a>\t';
+            {header: '操作', width: 120, renderer: function(){
+            	var opt = '<a href="javascript:;" action="reset">密码重置</a>\t';
+            	opt += '<a href="javascript:;" action="update">修改</a>\t';
             	opt += '<a href="javascript:;" action="remove">删除</a>';
             	return opt;
             }}

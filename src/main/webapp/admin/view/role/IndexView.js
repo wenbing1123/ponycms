@@ -73,9 +73,9 @@ Ext.define('App.view.role.IndexView', {
             }},
             {header: '状态', dataIndex: 'status', width: 50,renderer:function(value){
             	if(value==undefined || value==true){
-            		return '<div class="success" style="display:block;width:16px;height:16px;"></span>';
+            		return '<div class="icon success"></span>';
             	}else{
-            		return '<div class="error" style="display:block;width:16px;height:16px;"></span>';
+            		return '<div class="icon error"></span>';
             	}
             }},
             {header: '描述', dataIndex: 'description', flex: 1},
