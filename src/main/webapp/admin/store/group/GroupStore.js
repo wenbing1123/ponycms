@@ -9,7 +9,7 @@ Ext.define('App.store.group.GroupStore', {
     },
     proxy: {
         type: 'ajax',
-        url:  'group/treegrid.do',
+        url:  'groupController.do?treeData',
         actionMethods: {read:'POST'}
     }
 });

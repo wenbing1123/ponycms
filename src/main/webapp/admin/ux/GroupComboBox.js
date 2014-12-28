@@ -12,7 +12,7 @@ Ext.define('App.ux.GroupComboBox', {
     	},
       	proxy: {  
            type: 'ajax',   
-           url: 'group/treegrid.do',
+           url: 'groupController.do?treeData',
 		   reader: 'json'
         }
     }),

@@ -19,8 +19,8 @@ public class DomainController {
 
 	@Autowired ICrudService crudService;
 	
-	@RequestMapping(params="grid")
-	public @ResponseBody List<Node> treegrid(Long id) throws Exception{
+	@RequestMapping(params="treeData")
+	public @ResponseBody List<Node> treeData(Long id) throws Exception{
 		TreeRequest treeRequest = new TreeRequest(id,2);
 		treeRequest.addProperties("code","description");
 		List<Node> nodes = crudService.findTree(Domain.class, treeRequest);
@@ -48,4 +48,5 @@ public class DomainController {
 		crudService.remove(Domain.class, ids);
 		return Result.success();
 	}
+	
 }

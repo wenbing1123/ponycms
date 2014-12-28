@@ -20,11 +20,11 @@ Ext.define('App.view.domain.IndexView', {
         stripeRows: true, //隔行换色
         loadMask: true,
         columns: [
-            {xtype: 'treecolumn', text: '名称', dataIndex: 'text', width: 350},
+            {xtype: 'treecolumn', text: '名称', dataIndex: 'text', width: 300},
             {header: '代码', dataIndex: 'attributes', width: 150, renderer: function(attributes){
             	return attributes.code;
             }},
-            {header: '描述', dataIndex: 'attributes', flex: 400, renderer: function(attributes){
+            {header: '描述', dataIndex: 'attributes', flex: 1, renderer: function(attributes){
             	return attributes.description;
             }}
         ]
