@@ -1,11 +1,11 @@
-Ext.define('App.view.domain.AddView', {
+Ext.define('App.view.domain.CreateView', {
     extend: 'Ext.window.Window',    
-    alias: 'widget.DomainAddView',
+    alias: 'widget.DomainCreateView',
     title: '创建域',
-    iconCls: 'add',
+    iconCls: 'create',
     y: 100,
     width: 500,
-    height: 240,
+    height: 270,
     modal: true,
     resizable: false,
     border: false,
@@ -25,6 +25,12 @@ Ext.define('App.view.domain.AddView', {
 			name: 'parentId',
 			xtype: 'hiddenfield'
 		},{ 
+			name: 'parentName',
+			value: '顶级域',
+	        fieldLabel: '父域',
+	        disabled: true,
+	        anchor: '50%'
+	    },{ 
 	        name: 'name',
 	        fieldLabel: '域名称',
 	        allowBlank: false, 
@@ -35,10 +41,6 @@ Ext.define('App.view.domain.AddView', {
 	        fieldLabel: '域代码',
 	        anchor: '50%'
 	    },{ 
-	        name: 'order',
-	        fieldLabel: '排序',
-	        anchor: '50%'
-	    },{ 
 	    	xtype: 'textareafield',
 	        name: 'description',
 	        height: 80,
@@ -46,7 +48,7 @@ Ext.define('App.view.domain.AddView', {
 	        anchor: '95%'
 	    }]
     }],
-    buttons: [{text: '保存',action: 'ok'},{text: '关闭',action: 'close'}],
+    buttons: [{text: '保存',action: 'accept'},{text: '关闭',action: 'cancel'}],
     buttonAlign: 'center',
     
     initComponent: function() {

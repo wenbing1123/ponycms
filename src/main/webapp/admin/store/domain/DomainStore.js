@@ -9,7 +9,7 @@ Ext.define('App.store.domain.DomainStore', {
     },
     proxy: {
         type: 'ajax',
-        url:  'domain/treegrid.do',
+        url:  'domainController.do?grid',
         actionMethods: {read:'POST'}
     }
 });

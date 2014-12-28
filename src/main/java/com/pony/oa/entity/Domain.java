@@ -11,8 +11,7 @@ import com.pony.core.entity.TreeEntity;
 public class Domain extends TreeEntity {
 
 	private	 String	 code;  		//域代码
-	private	 Integer order;	 		//显示顺序
-	private	 String	 description;   //描述
+	private	 String	 description;   //域描述
 	
 	@Column(length=50)
 	public String getCode() {
@@ -20,14 +19,6 @@ public class Domain extends TreeEntity {
 	}
 	public void setCode(String code) {
 		this.code = code;
-	}
-	
-	@Column(name="_order")
-	public Integer getOrder() {
-		return order;
-	}
-	public void setOrder(Integer order) {
-		this.order = order;
 	}
 	
 	@Column(length=200)

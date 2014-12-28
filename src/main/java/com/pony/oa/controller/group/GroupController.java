@@ -24,7 +24,7 @@ public class GroupController {
 	@RequestMapping("/treegrid.do")
 	public @ResponseBody List<Node> treegrid(Long domainId, String id) {
 		TreeRequest treeRequest = new TreeRequest(id);
-		treeRequest.addProperties("code", "order", "description");
+		treeRequest.addProperties("code","description");
 		List<SearchFilter> filters = new ArrayList<SearchFilter>();
 		filters.add(new SearchFilter("domain.id", Operator.EQ, domainId));
 		return crudService.findTree(Group.class, filters, treeRequest);

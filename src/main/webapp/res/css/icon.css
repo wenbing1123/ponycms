@@ -7,6 +7,7 @@
 .config{background-image:url(../icon/config.png)!important;}
 .code{background-image:url(../icon/code.png)!important;}
 .collapse{background-image:url(../icon/collapse.gif)!important;}
+.create{background-image:url(../icon/create.png)!important;}
 .date{background-image:url(../icon/date.png)!important;}
 .delete{background-image:url(../icon/delete.png)!important;}
 .dictionary{background-image:url(../icon/dictionary.png)!important;}
@@ -39,4 +40,5 @@
 .setting{background-image:url(../icon/setting.png)!important;}
 .system{background-image:url(../icon/system.png)!important;}
 .user{background-image:url(../icon/user.gif)!important;}
+.update{background-image:url(../icon/update.png)!important;}
 .warn{background-image:url(../icon/warn.png)!important;}

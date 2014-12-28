@@ -1,27 +1,28 @@
 package com.pony.core.treeable;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 //树形请求
 public class TreeRequest implements Treeable {
 
-	private String 	id; //请求子节点的当前父节点id
+	private Serializable 	id; //请求子节点的当前父节点id
 	private Integer level = 3; //请求子节点的层次数，默认为3
 	private List<String> declaredProperties;
 	
 	public TreeRequest(){}
 	
-	public TreeRequest(String id){
+	public TreeRequest(Serializable id){
 		this.id = id;
 	}
 	
-	public TreeRequest(String id, int level){
+	public TreeRequest(Serializable id, int level){
 		this.id = id;
 		this.level = level;
 	}
 	
-	public String getId() {
+	public Serializable getId() {
 		return this.id;
 	}
 

@@ -11,7 +11,6 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -141,7 +140,7 @@ public class CrudServiceImpl implements ICrudService {
 	
 	public <T extends TreeEntity> List<Node> findTree(Class<T> entityClass, List<SearchFilter> filters, Treeable treeable){
 		Assert.notNull(treeable);
-		String id = treeable.getId();
+		Serializable id = treeable.getId();
 		List<T> entities = null;
 		
 		if(filters == null) filters = new ArrayList<SearchFilter>();
@@ -208,12 +207,12 @@ public class CrudServiceImpl implements ICrudService {
 					Node pNode = tmpMap.get(parentIdStr);
 					pNode.addChildren(node);
 				}
-				if(StringUtils.isBlank(treeable.getId())){
+				if(treeable.getId() == null){
 					if(parentIdStr == null){
 						nodes.add(node);
 					}
 				}else{
-					if(parentIdStr != null && treeable.getId().equals(parentIdStr)){
+					if(parentIdStr != null && treeable.getId().toString().equals(parentIdStr)){
 						nodes.add(node);
 					}
 				}

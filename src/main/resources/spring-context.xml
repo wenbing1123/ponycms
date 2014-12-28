@@ -46,8 +46,6 @@
 				<prop key="hibernate.show_sql">${hibernate.showsql}</prop>
 				<prop key="hibernate.format_sql">${hibernate.formatsql}</prop>
 				<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl}</prop>
-				<prop key="hibernate.cache.provider_class">org.hibernate.cache.NoCacheProvider</prop>
-      			<prop key="hibernate.ejb.cfgfile">hibernate.cfg.xml</prop>
 			</props>
 		</property>
 		<property name="packagesToScan">
@@ -65,8 +63,7 @@
     </bean>
     
     <tx:annotation-driven transaction-manager="transactionManager"/>
-	
-	<aop:aspectj-autoproxy/>
+	<aop:aspectj-autoproxy proxy-target-class="true"/>
 	
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
     	<property name="javaMailProperties">

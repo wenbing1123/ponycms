@@ -12,7 +12,7 @@ Ext.define('App.ux.DomainComboBox', {
     	},
       	proxy: {  
            type: 'ajax',   
-           url: 'domain/treegrid.do',
+           url: 'domainController.do?grid',
 		   reader: 'json'
         }
     }),

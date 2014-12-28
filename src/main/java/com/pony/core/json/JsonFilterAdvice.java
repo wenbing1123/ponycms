@@ -16,7 +16,7 @@ import com.pony.core.RequestContext;
 @Component @Aspect
 public class JsonFilterAdvice {
 	
-	@Pointcut("execution(* com.pony.**.controller.*(..))")
+	@Pointcut("execution(* com.pony..controller..*.*(..))")
 	public void anyMethod(){}
 
 	@Around("anyMethod()")

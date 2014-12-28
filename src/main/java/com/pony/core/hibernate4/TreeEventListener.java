@@ -18,9 +18,12 @@ public class TreeEventListener implements PreInsertEventListener,PreUpdateEventL
 	private static final long serialVersionUID = 1L;
 	
 	private static final Logger logger = LoggerFactory.getLogger(TreeEventListener.class);
-
+	
+	/**
+	 * 创建实体对象之前触发
+	 * 
+	 */
 	public boolean onPreInsert(PreInsertEvent event) {
-		
 		Session session = event.getSession();
 		Object object = event.getEntity();
 		
@@ -78,6 +81,10 @@ public class TreeEventListener implements PreInsertEventListener,PreUpdateEventL
 		return false; //Return true if the operation should be vetoed
 	}
 	
+	/**
+	 * 更新实体对象之前触发
+	 * 
+	 */
 	public boolean onPreUpdate(PreUpdateEvent event) {
 		Object object = event.getEntity();
 		
@@ -181,6 +188,10 @@ public class TreeEventListener implements PreInsertEventListener,PreUpdateEventL
 		return false;
 	}
 	
+	/**
+	 * 删除实体对象之前触发
+	 * 
+	 */
 	public boolean onPreDelete(PreDeleteEvent event) {
 		Object object = event.getEntity();
 		
