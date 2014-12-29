@@ -6,7 +6,7 @@ Ext.define('App.ux.DicComboBox', {
     	autoLoad: false, 
       	proxy: {  
            type: 'ajax',   
-           url: 'category/listdata.do',
+           url: 'categoryController.do?listData',
            reader: 'json',
            extraParams: {type : this.category}
         }

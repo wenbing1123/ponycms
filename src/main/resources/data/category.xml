@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <categories>
+	
+	<!-- 数据字典 -->
 	<category type="dic"	id="duty"	text="职务"/>
+	<category type="dic"	id="sex"	text="性别"/>
+	
+	<!-- 附件分类  -->
 	<category type="file"	id="doc"	text="公文"/>
+	
 </categories>

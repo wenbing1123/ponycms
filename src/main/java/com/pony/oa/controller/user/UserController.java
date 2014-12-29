@@ -63,7 +63,7 @@ public class UserController {
 	
 	@RequestMapping("/getRoles.do")
 	public @ResponseBody List<Role> getRoles(){
-		return crudService.findAll(Role.class);
+		return crudService.findList(Role.class);
 	}
 	
 	@RequestMapping("/getUserRoles.do")

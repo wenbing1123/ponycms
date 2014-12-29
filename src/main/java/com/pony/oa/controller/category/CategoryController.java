@@ -12,18 +12,18 @@ import com.pony.core.treeable.Node;
 import com.pony.oa.service.ICategoryService;
 
 @Controller
-@RequestMapping("/category")
-public class CatgoryController {
+@RequestMapping("/categoryController")
+public class CategoryController {
 
 	@Autowired ICategoryService categoryService;
 	
-	@RequestMapping("/treedata.do")
-	public @ResponseBody List<Node> treedata(String type){
+	@RequestMapping(params="treeData")
+	public @ResponseBody List<Node> treeData(String type){
 		return categoryService.getTreeByType(type);
 	}
 	
-	@RequestMapping("/listdata.do")
-	public @ResponseBody List<ValueLabel> listdata(String type){
+	@RequestMapping(params="listData")
+	public @ResponseBody List<ValueLabel> listData(String type){
 		return categoryService.getListByType(type);
 	}
 	

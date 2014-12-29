@@ -112,6 +112,24 @@ public abstract class HibernateJpaDaoSupport {
 	}
 	
 	@Transactional(readOnly=true)
+	public <T> List<T> findList(Class<T> entityClass, final String fieldName, final Object fieldValue, Sort sort){
+		
+		Specification<T> specification = new Specification<T>() {
+			public Predicate toPredicate(Root<T> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
+				String[] names = StringUtils.split(fieldName,".");
+				Path<?> path = root.get(names[0]);
+				for(int i=1;i<names.length;i++){
+					path = path.get(names[i]);
+				}
+				Predicate predicate = builder.equal(path, fieldValue);
+				return builder.and(predicate);
+			}
+		};
+		
+		return findList(entityClass, specification, sort);
+	}
+	
+	@Transactional(readOnly=true)
 	public <T> List<T> findList(Class<T> entityClass, Specification<T> specification) {
 		CriteriaBuilder builder = em.getCriteriaBuilder();
 		CriteriaQuery<T> query = builder.createQuery(entityClass);

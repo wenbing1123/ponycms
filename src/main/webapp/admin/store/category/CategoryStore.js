@@ -9,7 +9,7 @@ Ext.define('App.store.category.CategoryStore', {
     },
     proxy: {
         type: 'ajax',
-        url:  'category/treedata.do',
+        url:  'categoryController.do?treeData',
         actionMethods: {read:'POST'}
     }
 });

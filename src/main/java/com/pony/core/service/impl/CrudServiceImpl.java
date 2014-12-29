@@ -6,6 +6,7 @@ import java.beans.PropertyDescriptor;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -27,6 +28,7 @@ import com.pony.core.pageable.Page;
 import com.pony.core.pageable.PageRequest;
 import com.pony.core.pageable.Pageable;
 import com.pony.core.pageable.Sort;
+import com.pony.core.pageable.Sort.Order;
 import com.pony.core.service.ICrudService;
 import com.pony.core.treeable.Node;
 import com.pony.core.treeable.Treeable;
@@ -44,9 +46,38 @@ public class CrudServiceImpl implements ICrudService {
 		
 		return dao.find(entityClass, id);
 	}
-
-	public <T> List<T> findAll(Class<T> entityClass) {
+	
+	public <T> List<T> findList(Class<T> entityClass){
 		return dao.findList("from " + entityClass.getSimpleName());
+	}
+	
+	public <T> List<T> findList(Class<T> entityClass, Sort sort){
+		StringBuilder builder = new StringBuilder("from " + entityClass.getSimpleName());
+		if(null != sort){
+			builder.append(" order by ");
+			Iterator<Order> iter = sort.iterator();
+			while(iter.hasNext()){
+				Order order = iter.next();
+				switch (order.getDirection()) {
+				case DESC:
+					builder.append(order.getProperty()+" desc,");
+					break;
+				default:
+					builder.append(order.getProperty()+" asc,");
+					break;
+				}
+			}
+			builder.deleteCharAt(builder.lastIndexOf(","));
+		}
+		return dao.findList(builder.toString());
+	}
+	
+	public <T> List<T> findList(Class<T> entityClass, String propertyName, Object propertyValue){
+		return dao.findList(entityClass,propertyName,propertyValue);
+	}
+	
+	public <T> List<T> findList(Class<T> entityClass, String propertyName, Object propertyValue, Sort sort){
+		return dao.findList(entityClass,propertyName,propertyValue, sort);
 	}
 
 	public <T> Page<T> findPage(Class<T> entityClass) {

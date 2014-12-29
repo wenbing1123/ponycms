@@ -78,13 +78,42 @@ public interface ICrudService {
 	public <T,PK extends Serializable> T find(Class<T> entityClass, PK id);
 	
 	/**
-	 * 查询所有对象
+	 * 查询实体列表
 	 * 
 	 * @param <T>
 	 * @param entityClass
 	 * @return
 	 */
-	public <T> List<T> findAll(Class<T> entityClass);
+	public <T> List<T> findList(Class<T> entityClass);
+	
+	/**
+	 * 查询实体列表
+	 * 
+	 * @param <T>
+	 * @param entityClass
+	 * @param sort
+	 * @return
+	 */
+	public <T> List<T> findList(Class<T> entityClass, Sort sort);
+	
+	/**
+	 * 根据属性查询实体列表
+	 * 
+	 * @param <T>
+	 * @param entityClass
+	 * @return
+	 */
+	public <T> List<T> findList(Class<T> entityClass, String propertyName, Object propertyValue);
+	
+	/**
+	 * 根据属性查询实体列表
+	 * 
+	 * @param <T>
+	 * @param entityClass
+	 * @param sort
+	 * @return
+	 */
+	public <T> List<T> findList(Class<T> entityClass, String propertyName, Object propertyValue, Sort sort);
 	
 	/**
 	 * 查询分页对象，对过本地线程从请求中读取条件及排序

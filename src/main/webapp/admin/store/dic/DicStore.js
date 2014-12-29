@@ -1,17 +1,17 @@
 Ext.define('App.store.dic.DicStore', {
     extend: 'Ext.data.Store',
-    fields: ['id','category','name','order','description'],
+    model: 'App.model.DicModel',
     pageSize: App.pageSize,
     autoLoad: false, //当初始化时不加自动载数据,手动加载数据
     proxy: {
         type: 'ajax',
-        url: 'dic/datagrid.do',
-        actionMethods: {read:'POST'},
-        reader: {
-            type:'json',
-            totalProperty:'total',
-            root:'rows'
+        api: {
+        	read: 'dicController.do?gridData',
+        	create: 'dicController.do?save',
+        	update: 'dicController.do?update',
+        	destroy: 'dicController.do?remove'
         },
-        extraParams: {}
+        reader:'json',
+        writer:'json'
     }
 });

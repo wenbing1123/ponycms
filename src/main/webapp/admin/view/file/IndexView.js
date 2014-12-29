@@ -29,7 +29,7 @@ Ext.define('App.view.file.IndexView', {
 	           	 autoLoad: true, 
 	           	 proxy: {  
                     type: 'ajax',   
-                    url: 'category/listdata.do',
+                    url: 'categoryController.do?listData',
    			     	reader: 'json',
    			     	extraParams: {type : 'file'}
                  }

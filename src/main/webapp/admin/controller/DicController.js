@@ -10,7 +10,7 @@ Ext.define('App.controller.DicController', {
     init: function() {
     	
     	var c = this;
-    	c.categoryId = null;
+    	c.category = null;
     	
     	this.control({
         	
@@ -22,31 +22,44 @@ Ext.define('App.controller.DicController', {
         			treepanel.getStore().load();
         			
         			var gridpanel = gp.down('gridpanel');
+        			var editingPlugin = gridpanel.editingPlugin;
         			treepanel.on('itemclick',function(view,record){
-        				c.categoryId = record.data.id;
-        				Ext.apply(gridpanel.getStore().proxy.extraParams, {categoryId: record.data.id});
+        				c.category = record.data.id;
+        				Ext.apply(gridpanel.getStore().proxy.extraParams, {category: record.data.id});
         				gridpanel.getStore().load();
         				gridpanel.setTitle('字典列表【'+record.data.text+'】');
         			});
         			
-        			gp.down('button[action=save]').on('click',function(){
-	                    if(c.categoryId != undefined){
-	                    	
-	                    }else{
-	                    	App.msg.alert('请从左侧选择分类');
-	                    }
-	                });
-        			
-        			gp.down('button[action=add]').on('click',function(){
-                        if(c.categoryId != undefined){
-                        	
+        			gp.down('button[action=create]').on('click',function(){
+                        if(c.category != undefined){
+                        	editingPlugin.cancelEdit();
+	                    	var row = Ext.create('App.model.DicModel',{
+	                    		category: c.category,
+	                    		order: 10
+	                    	});
+	                    	var store = gridpanel.getStore();
+	                    	store.insert(store.getCount(), row);
+	                    	editingPlugin.startEdit(store.getCount()-1, 0);
                         }else{
                         	App.msg.alert('请从左侧选择分类');
                         }
                      });
         			
+        			gp.down('button[action=save]').on('click',function(){
+	                    if(c.category != undefined){
+	                    	editingPlugin.cancelEdit();
+	                    	gridpanel.getStore().sync({
+	                    		callback: function(batch,options){
+	                    			gridpanel.getStore().load();
+	                    		}
+	                    	}); //同步到后台
+	                    }else{
+	                    	App.msg.alert('请从左侧选择分类');
+	                    }
+	                });
+        			
                      gp.down('button[action=refresh]').on('click',function(){
-                    	 if(c.categoryId != undefined){
+                    	 if(c.category != undefined){
                     		 gridpanel.getStore().load();
                          }else{
                          	App.msg.alert('请从左侧选择分类');
@@ -57,15 +70,9 @@ Ext.define('App.controller.DicController', {
                    		var aTag = e.getTarget('a');
                    		if(aTag != undefined){
 	                    	var opt = aTag.attributes['action'].nodeValue;
-	                   		if(opt == 'remove'){
-	                   			App.msg.confirm('将删除选择字典，确定删除记录？',function(){
-	                   				App.ajax('dic/remove.do', function(result){
-	    								App.msg.tip(result.message);
-	    								if(result.success){
-	    									gridpanel.getStore().load();
-	    	        					}
-	    							},{'ids': record.data.id});
-	            				});
+	                   		if(opt == 'delete'){
+	                   			editingPlugin.cancelEdit();
+	                   			gridpanel.getStore().removeAt(rowIndex);
 	                   		}
                    		}
                     });

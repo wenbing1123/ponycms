@@ -2,6 +2,7 @@ package com.pony.core.json;
 
 import java.io.IOException;
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -92,8 +94,9 @@ public class JSON {
 	 * @throws JsonMappingException
 	 * @throws IOException
 	 */
-	public List<?> readAsList(String json) throws JsonParseException, JsonMappingException, IOException {
-		return mapper.readValue(json, List.class);
+	public <T> List<T> readAsList(String json, Class<T> beanClass) throws JsonParseException, JsonMappingException, IOException {
+		JavaType javaType = mapper.getTypeFactory().constructParametricType(ArrayList.class, beanClass);
+		return mapper.readValue(json, javaType);
 	}
 	
 	/**
@@ -105,9 +108,10 @@ public class JSON {
 	 * @throws JsonMappingException
 	 * @throws IOException
 	 */
-	@SuppressWarnings("unchecked")
-	public Map<String,Object> readAsMap(String json) throws JsonParseException, JsonMappingException, IOException{
-		return mapper.readValue(json, HashMap.class);
+	public <T> Map<String,T> readAsMap(String json, Class<T> beanClass) throws JsonParseException, JsonMappingException, IOException{
+		JavaType javaType = mapper.getTypeFactory().constructParametricType(HashMap.class, beanClass);
+		//Map<String,?> map = mapper.readValue(json, new TypeReference<Map<String,?>>(){});
+		return mapper.readValue(json, javaType);
 	}
 	
 	private ObjectMapper mapper;

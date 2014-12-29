@@ -24,6 +24,7 @@ public interface IDao {
 	
 	public <T> List<T> findList(String hql, Object... values);
 	public <T> List<T> findList(Class<T> entityClass, String fieldName, Object fieldValue);
+	public <T> List<T> findList(Class<T> entityClass, String fieldName, Object fieldValue, Sort sort);
 	public <T> List<T> findList(Class<T> entityClass, Specification<T> specification);
 	public <T> List<T> findList(Class<T> entityClass, Specification<T> specification, Sort sort);
 	

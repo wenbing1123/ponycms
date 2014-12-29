@@ -41,19 +41,24 @@ Ext.define('App.view.dic.IndexView', {
     	rootVisible: false,
 	    multiSelect: false,
     	store:'dic.DicStore',
-        tbar: [{text:'保存',iconCls:'save',action:"save"},{text:'增加',iconCls:'add',action:"add"},{text:'刷新',iconCls:'refresh',action:"refresh"}],
+        tbar: [{text:'增加',iconCls:'create',action:"create"},{text:'保存',iconCls:'save',action:"save"},{text:'刷新',iconCls:'refresh',action:"refresh"}],
         columnLines : true,
         stripeRows: true, //隔行换色
         loadMask: true,
         columns: [
-          {header: '字典名称', dataIndex: 'name', width: 200},
-          {header: '显示顺序', dataIndex: 'order', width: 100},
-          {header: '字典描述', dataIndex: 'description', flex: 1},
+          {header: '字典名称', dataIndex: 'name', width: 200, editor: {xtype:'textfield',allowBlank:false}},
+          {header: '显示顺序', dataIndex: 'order', width: 100, editor: {xtype:'textfield',allowBlank:false}},
+          {header: '字典描述', dataIndex: 'description', flex: 1, editor: {xtype:'textfield'}},
           {header: '操作', renderer: function(val){
-          	var opt = '<a href="javascript:;" action="remove">删除</a>';
+          	var opt = '<a href="javascript:;" action="delete"><div class="icon delete"></div></a>';
           	return opt;
-          }, width: 150}
-      ]
+          }, width: 40}
+        ],
+        plugins: Ext.create('Ext.grid.plugin.RowEditing', {
+        	clicksToEdit: 2,
+            autoCancel: false,
+            errorSummary: false,
+        })
     }],
     
     initComponent: function() {
