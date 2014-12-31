@@ -15,5 +15,7 @@
         diskPersistent="false"
         diskExpiryThreadIntervalSeconds="120"
         />
+        
+	<cache name="com.pony.core.cache.SettingCache" maxElementsInMemory="100" eternal="true" overflowToDisk="true"/>
      
 </ehcache>

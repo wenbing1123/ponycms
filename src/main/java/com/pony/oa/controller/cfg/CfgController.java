@@ -9,15 +9,15 @@ import com.pony.core.Setting;
 import com.pony.core.SettingUtils;
 
 @Controller
-@RequestMapping("/cfg")
+@RequestMapping("/cfgController")
 public class CfgController {
 
-	@RequestMapping("/get")
+	@RequestMapping(params="get")
 	public @ResponseBody Setting get() {
 		return SettingUtils.get();
 	}
 	
-	@RequestMapping("/update")
+	@RequestMapping(params="update")
 	public @ResponseBody Result update(Setting setting) {
 		SettingUtils.set(setting);
 		return Result.success();

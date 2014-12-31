@@ -1,18 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <modules>
 	<module id="personal" text="个人办公" iconCls="folder">
-		<module id="task" 	  text="我的任务"	port="taskview" 	perm="my:task"/>
-		<module id="message"  text="我的消息"	port="messageview" 	perm="my:message"/>
-		<module id="document" text="我的公文"	port="documentview" perm="my:document"/>
-		<module id="profile"  text="个人资料"	port="profileview" 	perm="my:profile"/>
+		<module id="task" 	  text="我的任务"	port="PersonalTaskView" 	perm="my:task"/>
+		<module id="message"  text="我的消息"	port="PersonalMessageView" 	perm="my:message"/>
+		<module id="document" text="我的公文"	port="PersonalDocumentView" perm="my:document"/>
+		<module id="profile"  text="个人资料"	port="PersonalProfileView" 	perm="my:profile"/>
 	</module>
 	<module id="content" text="内容管理" iconCls="folder">
-		<module id="channel"  text="栏目管理"	port="/channel/desktop.do" 	perm="channel:manage"/>
-		<module id="article"  text="文章管理"	port="/personal/desktop.do" perm="article:manage"/>
+		<module id="article"  	text="文章管理"/>
+		<module id="maintain"  	text="系统维护">
+			<module id="retrieval"  text="全文检索"/>
+			<module id="collection" text="采集管理"/>
+			<module id="friendlink" text="友情链接"/>
+			<module id="ad"  	  	text="广告管理"/>
+			<module id="recycle"  	text="回收站"/>
+		</module>
+		<module id="member"  	text="会员管理">
+			<module id="mem"  		text="会员"/>
+			<module id="mgroup" 	text="会员组"/>
+		</module>
+		<module id="config"  	text="系统配置">
+			<module id="site"  		text="站点配置"/>
+			<module id="model" 		text="模型管理"/>
+			<module id="channel" 	text="栏目管理"/>
+			<module id="type" 		text="内容类型"/>
+			<module id="template" 	text="模板管理"/>
+			<module id="resource" 	text="资源管理"/>
+		</module>
 	</module>
 	<module id="process" text="流程管理" iconCls="folder">
-		<module id="deploy"   text="流程部署"	port="/deploy/index.do" 	perm="deploy:manage"/>
-		<module id="instance" text="流程监控"	port="/instance/index.do" 	perm="instance:manage"/>
+		<module id="deploy"   text="流程部署"	port="" 	perm="deploy:manage"/>
+		<module id="instance" text="流程监控"	port="" 	perm="instance:manage"/>
 	</module>
 	<module id="system" text="系统管理" iconCls="folder">
 		<module id="user" 	  text="用户管理" 	port="UserIndexView" perm="user:mamage"/>

@@ -56,10 +56,10 @@ public class SettingUtils {
 	 * @return
 	 */
 	public static Setting get(){
-		Ehcache cache = cacheManager.getCache(CACHE_NAME);
+		Ehcache cache = cacheManager.getEhcache(CACHE_NAME);
 		if(cache != null && cache.isKeyInCache(CACHE_KEY)){
 			Element e = cache.get(CACHE_KEY);
-			return (Setting)e.getValue();
+			return (Setting)e.getObjectValue();
 		}else{
 			try{
 				File settingFile = new ClassPathResource(SETTING_XML).getFile();
@@ -133,7 +133,7 @@ public class SettingUtils {
 			}
 			IOUtils.closeQuietly(outputStream);
 		}
-		Ehcache cache = cacheManager.getCache(CACHE_NAME);
+		Ehcache cache = cacheManager.getEhcache(CACHE_NAME);
 		cache.put(new Element(CACHE_KEY,setting));
 	}
 	

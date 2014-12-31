@@ -29,7 +29,7 @@ public class GroupController {
 	
 	@RequestMapping(params="treeData")
 	public @ResponseBody List<Node> treeData(Long domainId, Long id) {
-		TreeRequest treeRequest = new TreeRequest(id);
+		TreeRequest treeRequest = new TreeRequest(id,2);
 		treeRequest.addProperties("code","description");
 		List<SearchFilter> filters = new ArrayList<SearchFilter>();
 		filters.add(new SearchFilter("domain.id", Operator.EQ, domainId));
