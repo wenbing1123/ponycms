@@ -2,11 +2,13 @@ package com.pony.oa.entity;
 
 import java.util.Map;
 
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapKey;
 import javax.persistence.OneToMany;
@@ -18,26 +20,37 @@ import com.pony.core.entity.BaseEntity;
 @Table(name="oa_document")
 public class Document extends BaseEntity {
 
-	private	String	name;
-	private	String	description;
-	private	String	status; //状态,新建，提交流程后每一步更新状态，最后归档
-	private User	creator; //创建者
-	private	Workflow workflow; //流程定义
-	private	String	processInstanceId; //流程实例Id,启动流程后更新值
-	private Map<Long,DocumentProperty> properties; //公文动态属性
+	private	String	title;		//标题
+	private String	content; 	//内容
+	private	String	description;//描述
+	
+	private User		creator; 	//创建者，创建时间在父类中
+	private	String		status; 	//状态,新建，提交流程后每一步更新状态，最后归档
+	private	Workflow 	workflow; 	//工作流
+	private	String		processInstanceId; //流程实例Id
+	private Map<Long,DocumentProperty> properties; //公文动态表单属性
 	
 	@Column(length=100)
-	public String getName() {
-		return name;
+	public String getTitle() {
+		return title;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	
+	@Lob @Basic(fetch=FetchType.LAZY)
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
 	}
 	
 	@Column(length=200)
 	public String getDescription() {
 		return description;
 	}
+	
 	public void setDescription(String description) {
 		this.description = description;
 	}

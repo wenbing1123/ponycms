@@ -1,6 +1,6 @@
-Ext.define('App.view.personal.TaskView', {
+Ext.define('App.view.flowDeploy.IndexView', {
     extend: 'Ext.panel.Panel',    
-    alias: 'widget.PersonalTaskView',
+    alias: 'widget.FlowDeployIndexView',
     layout: 'border',
     items: [{
     	region: 'north',

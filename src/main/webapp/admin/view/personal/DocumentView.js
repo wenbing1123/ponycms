@@ -1,6 +1,6 @@
-Ext.define('App.view.personal.TaskView', {
+Ext.define('App.view.personal.DocumentView', {
     extend: 'Ext.panel.Panel',    
-    alias: 'widget.PersonalTaskView',
+    alias: 'widget.PersonalDocumentView',
     layout: 'border',
     items: [{
     	region: 'north',

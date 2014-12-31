@@ -19,9 +19,7 @@ public class Workflow extends BaseEntity {
 	private String	name;	//流程名称，如请假流程
 	private	byte[]	xml;	//流程定义XML
 	private	byte[]	img;	//流程定义图片
-	private	String	processInstanceId; //流程实例Id
-	
-	private	Form form;	//动态表单,一个流程对应一个表单，由流程作为主体进行维护关联关系
+	private	Form 	form;	//动态表单,一个流程对应一个表单，由流程作为主体进行维护关联关系
 	
 	@Column(length=36)
 	public String getName() {
@@ -45,14 +43,6 @@ public class Workflow extends BaseEntity {
 	}
 	public void setImg(byte[] img) {
 		this.img = img;
-	}
-	
-	@Column(length=36)
-	public String getProcessInstanceId() {
-		return processInstanceId;
-	}
-	public void setProcessInstanceId(String processInstanceId) {
-		this.processInstanceId = processInstanceId;
 	}
 	
 	@OneToOne(cascade=CascadeType.ALL)
