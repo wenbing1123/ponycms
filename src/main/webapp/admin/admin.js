@@ -14,7 +14,7 @@ Ext.application({
     
     controllers: [
     'IndexController',
-    'ProfileController',
+    'MessageController','ProfileController',
     'UserController','RoleController','DomainController','GroupController','DicController','FileController','CfgController','LogController'         
     ],
     

@@ -7,18 +7,19 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.pony.core.entity.BaseEntity;
 
 @Entity
 @Table(name="oa_message")
+@JsonIgnoreProperties({"receiver"})
 public class Message extends BaseEntity {
 
 	private	String	title; 		//标题
 	private	String	content; 	//内容
-	private	String	url;		//访问Url
-	private	String	from;		//消息来自
+	private	String	from;		//消息来源，并非一定由用户发送
 	private	User	receiver;	//消息接收者
-	private	Boolean	readFlag;	//是否已读
+	private	Boolean	ifRead;		//是否已读
 	
 	@Column(length=50)
 	public String getTitle() {
@@ -28,23 +29,15 @@ public class Message extends BaseEntity {
 		this.title = title;
 	}
 	
-	@Column(length=200)
+	@Column(length=255)
 	public String getContent() {
 		return content;
 	}
 	public void setContent(String content) {
 		this.content = content;
 	}
-	
-	@Column(length=100)
-	public String getUrl() {
-		return url;
-	}
-	public void setUrl(String url) {
-		this.url = url;
-	}
-	
-	@Column(name="_from", length=50)
+
+	@Column(name="_from")
 	public String getFrom() {
 		return from;
 	}
@@ -62,11 +55,11 @@ public class Message extends BaseEntity {
 	}
 	
 	@Column(columnDefinition="integer")
-	public Boolean getReadFlag() {
-		return readFlag;
+	public Boolean getIfRead() {
+		return ifRead;
 	}
-	public void setReadFlag(Boolean readFlag) {
-		this.readFlag = readFlag;
+	public void setIfRead(Boolean ifRead) {
+		this.ifRead = ifRead;
 	}
 	
 }

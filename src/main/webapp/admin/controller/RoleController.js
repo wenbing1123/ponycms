@@ -20,7 +20,7 @@ Ext.define('App.controller.RoleController', {
         			search_btn.on('click',function(){
         				var form = gp.down('form');
         				if(form.getForm().isValid()){
-							gridpanel.getStore().proxy.extraParams = form.getForm().getValues( );
+							gridpanel.getStore().proxy.extraParams = form.getForm().getValues();
 							gridpanel.getStore().load();
 			    		}
         			});
