@@ -23,12 +23,14 @@ import com.pony.core.entity.BaseEntity;
 @Table(name="oa_document_property")
 public class DocumentProperty extends BaseEntity{
 
-	private	Document document; //所属公文
-	private String java_lang_String; //属性类型为字符串  类型=值
-    private Date java_util_Date; //属性类型为日期
-    private Integer java_lang_Integer; //属性类型是整型
-    private Long java_lang_Long; //属性类型为长整型
-    private byte[] java_io_File; //属性类型为文件类型
+	private	Document 	document; 			//所属公文
+	private String 		java_lang_String;	//字符串字段
+	private Long		java_lang_Long;
+    private Integer 	java_lang_Integer;
+    private Float		java_lang_Float;
+    private Boolean		java_lang_Boolean;
+    private Date 		java_util_Date;
+    private byte[] 		java_io_File;
 
     @ManyToOne(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
 	@JoinColumn(name="doc_id")
@@ -47,12 +49,12 @@ public class DocumentProperty extends BaseEntity{
         this.java_lang_String = java_lang_String;
     }
     
-    @Temporal(TemporalType.TIMESTAMP)
-    public Date getJava_util_Date() {
-        return java_util_Date;
+    @Basic
+    public Long getJava_lang_Long() {
+        return java_lang_Long;
     }
-    public void setJava_util_Date(Date java_util_Date) {
-        this.java_util_Date = java_util_Date;
+    public void setJava_lang_Long(Long java_lang_Long) {
+        this.java_lang_Long = java_lang_Long;
     }
     
     @Basic
@@ -64,11 +66,27 @@ public class DocumentProperty extends BaseEntity{
     }
     
     @Basic
-    public Long getJava_lang_Long() {
-        return java_lang_Long;
+    public Float getJava_lang_Float() {
+		return java_lang_Float;
+	}
+	public void setJava_lang_Float(Float java_lang_Float) {
+		this.java_lang_Float = java_lang_Float;
+	}
+	
+	@Column(columnDefinition="integer")
+	public Boolean getJava_lang_Boolean() {
+		return java_lang_Boolean;
+	}
+	public void setJava_lang_Boolean(Boolean java_lang_Boolean) {
+		this.java_lang_Boolean = java_lang_Boolean;
+	}
+	
+	@Temporal(TemporalType.TIMESTAMP)
+    public Date getJava_util_Date() {
+        return java_util_Date;
     }
-    public void setJava_lang_Long(Long java_lang_Long) {
-        this.java_lang_Long = java_lang_Long;
+    public void setJava_util_Date(Date java_util_Date) {
+        this.java_util_Date = java_util_Date;
     }
     
     @Lob @Basic(fetch=FetchType.EAGER)

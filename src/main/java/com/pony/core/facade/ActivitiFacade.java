@@ -5,12 +5,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.zip.ZipInputStream;
 
-import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 
 /**
- * 流程引擎门面类
+ * activiti5.16.4 version
+ * 对于在业务归档中的每一个流程定义会执行下面的步骤来初始化一个key,version,name和id：
+ * 	xml文件中的流程定义的id属性是被用于作为流程定义的key属性。
+ * 	xml文件中的流程定义的name属性是被用于作为流程定义的name属性。如果name属性没有被指定，那么id属性被作为name属性。
+ * 	一个有特殊key的流程第一次被部署，版本号为1。对于拥有同样key的流程定义，所有之后被部署的，版本号会递增1。key属性被用于区分不同的流程定义。
+ * 	id属性被设置成 {processDefinitionKey}:{processDefinitionVersion}:{generated-id}，在一个集群环境中的流程定义缓存中，这里的generated-id是一个唯一的数字，为了保证流程id的唯一性。
+ *  
+ * <definitions id="myDefinitions">
+ * 	<process id="myProcess" name="My important process">
+ * 
  * 
  * @author scott
  *
@@ -18,68 +26,65 @@ import org.activiti.engine.task.Task;
 public interface ActivitiFacade {
 
 	/**
-	 * 根据类路径下的流程定义文件来部署流程
+	 * 根据流程定义xml来部署流程定义
 	 * 
-	 * @param name 流程定义的显示别名,存储工作流（workflow）中的name
-	 * @param xmlDefinition 流程定义文件
+	 * @param name 流程部署名称
+	 * @param xmlName 流程定义xml名称
+	 * @param xmlData 流程定义xml数据
 	 */
-	public void deployProcessDefinition(String name, String xmlDefinition);
+	public void deployProcessDefinition(String name, String xmlName, byte[] xmlData);
 	
 	/**
-	 * 根据类路径下的流程定义文件来部署流程
+	 * 根据流程定义xml及img来部署流程定义
 	 * 
-	 * @param name 流程定义的显示别名,存储工作流（workflow）中的name
-	 * @param xmlDefinition 流程定义文件
-	 * @param imgDefinition 流程定义图片
+	 * @param name 流程部署名称
+	 * @param xmlName 流程定义xml名称
+	 * @param xmlData 流程定义xml数据
+	 * @param imgName 流程定义img名称
+	 * @param imgData 流程定义img数据
+	 * @return
 	 */
-	public void deployProcessDefinition(String name, String xmlDefinition, String imgDefinition);
+	public void deployProcessDefinition(String name, String xmlName, byte[] xmlData, String imgName, byte[] imgData);
 	
 	/**
-	 * 指定流程定义包部署
+	 * 根据流程定义xml的Classpath路径来部署流程定义
 	 * 
-	 * @param name 流程定义的显示别名,存储工作流（workflow）中的name
-	 * @param zipDefinition 流程定义ZIP包
+	 * @param classpathXml
 	 */
-	public void deployProcessDefinition(String name, ZipInputStream zipDefinition);
+	public void deployProcessDefinition(String classpathXml);
+	
+	/**
+	 * 根据流程定义xml及img的Classpath路径来部署流程定义
+	 * 
+	 * @param classpathXml
+	 * @param classpathImg
+	 */
+	public void deployProcessDefinition(String classpathXml, String classpathImg);
+	
+	/**
+	 * 根据流程定义ZIP包部署流程定义,部署单个流程
+	 * 
+	 * @param name 流程部署名称
+	 * @param zipData 流程定义ZIP包
+	 */
+	public void deployProcessDefinition(String name, ZipInputStream zipData);
 	
 	/**
 	 * 删除流程定义
 	 * 
-	 * @param deploymentId 流程部署Id
-	 * @param cascade 是否级联删除流程实例，为true则会删除和当前规则相关的所有信息，包括历史，为false则抛出异常
+	 * @param 流程定义名称
 	 */
-	public void undeployProcessDefinition(String deploymentId, boolean cascade);
+	public void undeployProcessDefinition(String name);
 	
 	/**
-	 * 流程定义查询列表
+	 * 删除流程定义
 	 * 
-	 * @return
+	 * @param 流程定义名称
+	 * @param cascade Deletes the given deployment and cascade deletion to process instances, history process instances and jobs.
 	 */
-	public List<ProcessDefinition> queryProcessDefinitionList();
+	public void undeployProcessDefinition(String name, boolean cascade);
 	
-	/**
-	 * 流程定义查询记录数
-	 * 
-	 * @return
-	 */
-	public long queryProcessDefinitionCount();
-	
-	/**
-	 * 流程定义分页查询
-	 * 
-	 * @param firstIndex
-	 * @param maxResult
-	 * @return
-	 */
-	public List<ProcessDefinition> queryProcessDefinitionListPage(int firstIndex, int maxResult);
-	
-	/**
-	 * 查看流程定义图片
-	 * 
-	 * @param deploymentId
-	 * @return
-	 */
-	public InputStream queryProcessDefinitionImage(String deploymentId);
+	//=============================================================================
 	
 	/**
 	 * 启动流程实例
@@ -90,6 +95,14 @@ public interface ActivitiFacade {
 	 * @return 流程实例Id
 	 */
 	public String startProcessInstance(String processDefinitionKey, String userId, Map<String,Object> variables);
+	
+	/**
+	 * 根据流程实例查看图表
+	 * 
+	 * @param processInstanceId
+	 * @return
+	 */
+	public InputStream getProcessInstanceDiagram(String processInstanceId);
 	
 	/**
 	 * 启动流程实例

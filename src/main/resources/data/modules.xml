@@ -6,30 +6,53 @@
 		<module id="document" text="我的公文"	port="PersonalDocumentView" perm="my:document"/>
 		<module id="profile"  text="个人资料"	port="PersonalProfileView" 	perm="my:profile"/>
 	</module>
-	<module id="content" text="内容管理" iconCls="folder">
-		<module id="article"  	text="文章管理"/>
-		<module id="maintain"  	text="系统维护">
-			<module id="retrieval"  text="全文检索"/>
-			<module id="collection" text="采集管理"/>
-			<module id="friendlink" text="友情链接"/>
-			<module id="ad"  	  	text="广告管理"/>
-			<module id="recycle"  	text="回收站"/>
+	<module id="cms" text="内容管理" iconCls="folder">
+		<module id="cms_article"  	text="文章管理"/>
+		<module id="cms_maintain"  	text="内容维护">
+			<module id="cms_retrieval"  	text="全文检索"/>
+			<module id="cms_collection" 	text="采集管理"/>
+			<module id="cms_friendlink" 	text="友情链接"/>
+			<module id="cms_ad"  	  		text="广告管理"/>
+			<module id="cms_recycle"  		text="回收站"/>
 		</module>
-		<module id="member"  	text="会员管理">
+		<module id="cms_member"  	text="会员管理">
 			<module id="mem"  		text="会员"/>
 			<module id="mgroup" 	text="会员组"/>
 		</module>
-		<module id="config"  	text="系统配置">
-			<module id="site"  		text="站点配置"/>
-			<module id="model" 		text="模型管理"/>
-			<module id="channel" 	text="栏目管理"/>
-			<module id="type" 		text="内容类型"/>
-			<module id="template" 	text="模板管理"/>
-			<module id="resource" 	text="资源管理"/>
+		<module id="cms_config"  	text="内容配置">
+			<module id="cms_site"  		text="站点配置"/>
+			<module id="cms_model" 		text="模型管理"/>
+			<module id="cms_channel" 	text="栏目管理"/>
+			<module id="cms_type" 		text="内容类型"/>
+			<module id="cms_template" 	text="模板管理"/>
+			<module id="cms_resource" 	text="资源管理"/>
+		</module>
+	</module>
+	<module id="shop" text="商城管理" iconCls="folder">
+		<module id="shop_product"  	text="商品管理"/>
+		<module id="shop_order"  	text="订单管理">
+			<module id="shop_allOrder"  	text="全部"/>
+			<module id="shop_payment" 		text="已支付"/>
+			<module id="shop_refund" 		text="已退款"/>
+			<module id="shop_shipping"  	text="已发货"/>
+			<module id="shop_returns"  		text="已退货"/>
+			<module id="shop_delivery"  	text="物流公司"/>
+			<module id="shop_template"  	text="快递单模板"/>
+		</module>
+		<module id="shop_maintain"  text="商城维护">
+			<module id="shop_consultation"  text="商品咨询"/>
+			<module id="shop_comment" 		text="商品评论"/>
+		</module>
+		<module id="shop_config"  	text="商城配置">
+			<module id="shop_category"  	text="商品分类"/>
+			<module id="shop_attribute" 	text="商品属性"/>
+			<module id="shop_parameter" 	text="商品参数"/>
+			<module id="shop_specification" text="商品规格"/>
+			<module id="shop_notice" 		text="到货通知"/>
 		</module>
 	</module>
 	<module id="process" text="流程管理" iconCls="folder">
-		<module id="deploy"   text="流程部署"	port="" 	perm="deploy:manage"/>
+		<module id="deploy"   text="流程部署"	port="WorkflowIndexView" 	perm="deploy:manage"/>
 		<module id="instance" text="流程监控"	port="" 	perm="instance:manage"/>
 	</module>
 	<module id="system" text="系统管理" iconCls="folder">

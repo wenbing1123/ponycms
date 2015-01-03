@@ -16,9 +16,10 @@ import com.pony.core.entity.BaseEntity;
 @Table(name="oa_workflow")
 public class Workflow extends BaseEntity {
 
-	private String	name;	//流程名称，如请假流程
-	private	byte[]	xml;	//流程定义XML
-	private	byte[]	img;	//流程定义图片
+	private String	name;	//名称
+	private String 	desc;	//描述
+	private	byte[]	xml;	//xml
+	private	byte[]	img;	//img
 	private	Form 	form;	//动态表单,一个流程对应一个表单，由流程作为主体进行维护关联关系
 	
 	@Column(length=36)
@@ -27,6 +28,14 @@ public class Workflow extends BaseEntity {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	@Column(name="_desc", length=255)
+	public String getDesc() {
+		return desc;
+	}
+	public void setDesc(String desc) {
+		this.desc = desc;
 	}
 	
 	@Lob @Basic(fetch=FetchType.LAZY)
@@ -45,7 +54,7 @@ public class Workflow extends BaseEntity {
 		this.img = img;
 	}
 	
-	@OneToOne(cascade=CascadeType.ALL)
+	@OneToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
 	@JoinColumn(name="form_id")
 	public Form getForm() {
 		return form;

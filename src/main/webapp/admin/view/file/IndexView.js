@@ -62,7 +62,7 @@ Ext.define('App.view.file.IndexView', {
             {xtype: 'rownumberer', text: '序号', width: 36},
             {header: '文件名称', dataIndex: 'name', width: 200},
             {header: '文件类型', dataIndex: 'type', width: 100},
-            {header: '扩展名', dataIndex: 'createtime', width: 50},
+            {header: '扩展名', dataIndex: 'ext', width: 50},
             {header: '路径', dataIndex: 'path', width: 150},
             {header: '大小', dataIndex: 'size', width: 50},
             {header: '所属分类', dataIndex: 'category', width: 100},

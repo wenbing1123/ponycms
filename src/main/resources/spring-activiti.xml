@@ -15,11 +15,17 @@
         <property name="transactionManager" ref="transactionManager"/>
         <property name="databaseSchemaUpdate" value="true"/>
         <property name="jobExecutorActivate" value="false"/>
+        <property name="activityFontName" value="宋体"/>
+        <property name="labelFontName" value="宋体"/>
         <property name="deploymentResources">
         	<list/>
         </property>
         <property name="customFormTypes">
-        	<list/>
+        	<list>
+        		<bean class="org.activiti.engine.impl.form.DateFormType">
+        			<constructor-arg value="yyyy-MM-dd"/>
+        		</bean>
+        	</list>
         </property>
    	</bean>
    	

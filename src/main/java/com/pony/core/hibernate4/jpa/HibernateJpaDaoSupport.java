@@ -63,7 +63,11 @@ public abstract class HibernateJpaDaoSupport {
 	@SuppressWarnings("unchecked")
 	public <T> T findOne(String hql, Object... values){
 		Query query = createQuery(hql, values);
-		return (T) query.getSingleResult();
+		try{
+			return (T) query.getSingleResult();
+		}catch(NoResultException e){
+			return null;
+		}
 	}
 	
 	@Transactional(readOnly=true)
