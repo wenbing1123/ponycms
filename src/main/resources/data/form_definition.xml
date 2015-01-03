@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Definition>
+	
+	<Templates>
+		<Template id="default.ftl" name="default.ftl"/>
+	</Templates>
+	
+	<Types>
+		<type id="java_lang_String" 	name="字符串"/>
+		<type id="java_lang_Long" 		name="字符串"/>
+		<type id="java_lang_Integer" 	name="字符串"/>
+		<type id="java_lang_Float" 		name="字符串"/>
+		<type id="java_lang_Boolean" 	name="字符串"/>
+		<type id="java_util_Date" 		name="字符串"/>
+		<type id="java_io_File" 		name="字符串"/>
+	</Types>
+	
+	<Inputs>
+		<Input id="text"		name="文本框"		template=""/>
+		<Input id="textarea"	name="文本域"		template=""/>
+		<Input id="select"		name="下拉列表"	template=""/>
+		<Input id="checkbox"	name="复选框"		template=""/>
+		<Input id="radio"		name="单选框"		template=""/>
+		<Input id="file"		name="文件框"		template=""/>
+		<Input id="datepicker"	name="文件框"		template=""/>
+	</Inputs>
+	
+</Definition>
