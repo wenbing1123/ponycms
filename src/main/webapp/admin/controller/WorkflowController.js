@@ -36,15 +36,14 @@ Ext.define('App.controller.WorkflowController', {
 	                   		if(opt == 'seeXml'){
 	                   			var w = Ext.widget("WorkflowSeeXmlView");
 	                   			w.show();
-	                   			w.add({
-	                   		    	xtype: 'textarea',
-	                   		    	//loader: {
-	                   		    	//	autoLoad: true,
-	                   		    	//	url: 'workflowController.do?getXml&id=' + record.data.id
-	                   		    	//},
-	                   		    	readOnly: true,
-	                   		    	autoScroll: true
-	                   		    });
+	                   			Ext.Ajax.request({
+	                   				url: 'workflowController.do?getXml',
+	                   				params: {"id": record.data.id},  
+	                   	            waitMsg: '加载中...',
+	                   	            success: function(response,options){
+	                   	            	w.down('textarea').setValue(response.responseText);
+	                   	            }
+	                   			});
 	                   		}
 	                   		if(opt == 'seeImg'){
 	                   			var w = Ext.widget("WorkflowSeeImgView");

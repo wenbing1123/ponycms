@@ -142,7 +142,7 @@ public class WorkflowServiceImpl implements IWorkflowService {
 			File file = new ClassPathResource(FORM_DEFINITION_XML).getFile();
 			Document document = new SAXReader().read(file);
 			
-			List<?> elements = document.selectNodes("//Definition/Templates/Template");
+			List<?> elements = document.selectNodes("//Form/Templates/Template");
 			Iterator<?> iterator = elements.iterator();
 			while(iterator.hasNext()){
 				Element element = (Element)iterator.next();
@@ -162,7 +162,7 @@ public class WorkflowServiceImpl implements IWorkflowService {
 			File file = new ClassPathResource(FORM_DEFINITION_XML).getFile();
 			Document document = new SAXReader().read(file);
 			
-			List<?> elements = document.selectNodes("//Definition/Types/type");
+			List<?> elements = document.selectNodes("//Field/Types/type");
 			Iterator<?> iterator = elements.iterator();
 			while(iterator.hasNext()){
 				Element element = (Element)iterator.next();
@@ -182,7 +182,7 @@ public class WorkflowServiceImpl implements IWorkflowService {
 			File file = new ClassPathResource(FORM_DEFINITION_XML).getFile();
 			Document document = new SAXReader().read(file);
 			
-			List<?> elements = document.selectNodes("//Definition/Inputs/Input");
+			List<?> elements = document.selectNodes("//Field/Inputs/Input");
 			Iterator<?> iterator = elements.iterator();
 			while(iterator.hasNext()){
 				Element element = (Element)iterator.next();
