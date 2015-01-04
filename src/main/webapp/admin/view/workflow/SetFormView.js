@@ -1,9 +1,9 @@
 Ext.define('App.view.workflow.SetFormView', {
     extend: 'Ext.window.Window',    
     alias: 'widget.WorkflowSetFormView',
-    title: '流程动态表单配置',
+    title: '流程表单定义',
     iconCls: 'update',
-    y: 100,
+    y: 60,
     width: 800,
     height: 600,
     modal: true,
@@ -21,36 +21,17 @@ Ext.define('App.view.workflow.SetFormView', {
 		    labelWidth: 60,
 		    labelAlign: 'right'
 		},
-		items: [{ 
-	        name: 'name',
-	        fieldLabel: '流程名称',
-	        allowBlank: false, 
-	        blankText: '流程名称不能为空',
-	        anchor: '65%'
-	    },{
-	    	xtype: 'filefield',
-	    	name: 'xml',
-	    	fieldLabel: '流程定义',
-	    	allowBlank: false, 
-	        blankText: '流程定义不能为空',
-	    	anchor: '65%',
-	    	buttonConfig: {
-	    		text: '浏览...'
-	    	}
-	    },{
-	    	xtype: 'filefield',
-	    	name: 'img',
-	    	fieldLabel: '流程图片',
-	    	anchor: '65%',
-	    	buttonConfig: {
-	    		text: '浏览...'
-	    	}
-	    },{
-	    	xtype: 'textarea',
-	    	name: 'desc',
-	        fieldLabel: '流程描述',
-	        anchor: '95%',
-	        rows: 7
+		items: [{
+			xtype: 'hiddenfield',
+			name: 'id'
+		},{ 
+			xtype: 'combo',
+	        name: 'template',
+	        fieldLabel: '表单模板',
+	        anchor: '65%',
+	        store:Ext.create('App.store.workflow.FormTplStore'),
+	        valueField: 'value',
+	        displayField: 'label'
 	    }]
     }],
     buttons: [{text: '保存',action: 'accept'},{text: '关闭',action: 'cancel'}],

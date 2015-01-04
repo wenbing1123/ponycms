@@ -54,7 +54,7 @@ Ext.define('App.view.workflow.IndexView', {
               	return opt;
             }},
             {header: '操作', width: 100,renderer: function(){
-            	var opt = '<a href="javascript:;" action="setForm">表单管理</a>';
+            	var opt = '<a href="javascript:;" action="defForm">定义表单</a>';
             	opt += '&nbsp;&nbsp;<a href="javascript:;" action="delete">删除</div></a>';
               	return opt;
             }}

@@ -125,17 +125,17 @@ public class WorkflowServiceImpl implements IWorkflowService {
 		return workflow.getImg();
 	}
 
-	public Form getForm(Long id) {
-		Workflow workflow = dao.find(Workflow.class, id);
+	public Form getForm(Long workflowId) {
+		Workflow workflow = dao.find(Workflow.class, workflowId);
 		return workflow.getForm();
 	}
 
-	public void setForm(Long id, Form form) {
-		Workflow workflow = dao.find(Workflow.class, id);
+	public void setForm(Long workflowId, Form form) {
+		Workflow workflow = dao.find(Workflow.class, workflowId);
 		workflow.setForm(form);
 	}
 	
-	public List<ValueLabel> getAllTemplate(){
+	public List<ValueLabel> getAllFormTpl(){
 		List<ValueLabel> list = new ArrayList<ValueLabel>();
 		
 		try {

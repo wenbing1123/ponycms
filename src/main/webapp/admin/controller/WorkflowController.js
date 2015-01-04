@@ -1,7 +1,7 @@
 Ext.define('App.controller.WorkflowController', {
     extend: 'Ext.app.Controller',
     
-    views: ['workflow.IndexView','workflow.CreateView','workflow.SeeXmlView','workflow.SeeImgView'],
+    views: ['workflow.IndexView','workflow.CreateView','workflow.SeeXmlView','workflow.SeeImgView','workflow.SetFormView'],
     
     stores: ['workflow.WorkflowStore'],
     
@@ -53,7 +53,7 @@ Ext.define('App.controller.WorkflowController', {
 	                   				src: 'workflowController.do?getImg&id=' + record.data.id
 	                   			});
 	                   		}
-	                   		if(opt == 'setForm'){
+	                   		if(opt == 'defForm'){
 	                   			Ext.widget("WorkflowSetFormView").show();
 	                   		}
 	                   		if(opt == 'delete'){

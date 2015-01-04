@@ -60,16 +60,22 @@ Ext.define('App.view.personal.DocumentView', {
         loadMask: true,
         columns: [
             {xtype: 'rownumberer', text: '序号', width: 36},
-            {header: '文件名称', dataIndex: 'name', width: 200},
-            {header: '文件类型', dataIndex: 'type', width: 100},
-            {header: '扩展名', dataIndex: 'createtime', width: 50},
-            {header: '路径', dataIndex: 'path', width: 150},
-            {header: '大小', dataIndex: 'size', width: 50},
-            {header: '所属分类', dataIndex: 'category', width: 100},
-            {header: '创建人', dataIndex: 'creator', width: 100},
-            {header: '创建时间', dataIndex: 'createtime', flex: 1},
-            {header: '操作', width: 50,renderer: function(){
+            {header: '标题', dataIndex: 'title', width: 200},
+            {header: '描述', dataIndex: 'description', flex: 1},
+            {header: '创建时间', dataIndex: 'createtime', width: 150},
+            {header: '状态', dataIndex: 'status', width: 150},
+            {header: '流程名称', dataIndex: 'workflow.name', width: 150},
+            {header: '附件', width: 50,renderer: function(){
             	var opt = '<a href="javascript:void(0);" action="download">下载</a>';
+            	return opt;
+            }},
+            {header: '审批历史', width: 50,renderer: function(){
+            	var opt = '<a href="javascript:void(0);" action="seeApprove">查看</a>';
+            	return opt;
+            }},
+            {header: '操作', width: 50,renderer: function(){
+            	var opt = '<a href="javascript:void(0);" action="submit">提交</a>';
+            	opt += '&nbsp;&nbsp;<a href="javascript:void(0);" action="delete">删除</a>';
             	return opt;
             }}
         ],

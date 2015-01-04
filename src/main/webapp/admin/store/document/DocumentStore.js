@@ -1,11 +1,11 @@
-Ext.define('App.store.message.MessageStore', {
+Ext.define('App.store.document.DocumentStore', {
     extend: 'Ext.data.Store',
-    fields: ['id','title','content','from','ifRead','createtime'],
+    fields: ['id','title','description','createtime'],
     pageSize: App.pageSize,
     autoLoad: false, //当初始化时不加自动载数据,手动加载数据
     proxy: {
         type: 'ajax',
-        url: 'messageController.do?gridData&desc_createtime',
+        url: 'workflowController.do?gridData&desc_createtime',
         actionMethods: {read:'POST'},
         reader: {
             type:'json',
