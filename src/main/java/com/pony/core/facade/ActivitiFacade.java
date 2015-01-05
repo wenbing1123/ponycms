@@ -86,6 +86,10 @@ public interface ActivitiFacade {
 	
 	//=============================================================================
 	
+	public List<String> searchNextTransitions(String instanceId, String userId);
+	public String nextStep(String instanceId, String userId, String transitionName);
+	public Object[] backStep(String instanceId, String userId);
+	
 	/**
 	 * 启动流程实例
 	 * 

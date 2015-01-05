@@ -1,6 +1,7 @@
 package com.pony.oa.controller.personal;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -70,8 +71,8 @@ public class DocumentController {
 	 * @return
 	 */
 	@RequestMapping(params="save")
-	public @ResponseBody Result save(Document document){
-		
+	public @ResponseBody Result save(Document document,Long workflowId,Map<String,Object>prop){
+		documentService.save(document, workflowId, SecurityUtils.getUserid(), prop);
 		return Result.success();
 	}
 	

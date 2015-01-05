@@ -272,4 +272,16 @@ public class ActivitiFacadeImpl implements ActivitiFacade{
 			.list();
 	}
 
+	public List<String> searchNextTransitions(String instanceId, String userId) {
+		return null;
+	}
+
+	public String nextStep(String instanceId, String userId,String transitionName) {
+		return null;
+	}
+
+	public Object[] backStep(String instanceId, String userId) {
+		return null;
+	}
+
 }
