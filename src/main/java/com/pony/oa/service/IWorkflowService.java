@@ -20,8 +20,9 @@ public interface IWorkflowService {
 	public byte[] getImage(Long id);
 	
 	//========>
-	public Form getForm(Long workflowId); 					//获取流程表单
-	public void setForm(Long workflowId, Form form); 		//设置流程表单
+	public Form getForm(Long workflowId); //获取表单
+	public void saveOrUpdateOptionList(List<Option> options); //设置条目列表
+	public void updateForm(Form form, String fieldIds);	//更新表单
 	public List<ValueLabel> getAllFormTpl();		//获取存在的表单模板
 	public List<ValueLabel> getAllFieldType();		//获取字段类型
 	public List<ValueLabel> getAllFieldInput(); 	//获取字段样式

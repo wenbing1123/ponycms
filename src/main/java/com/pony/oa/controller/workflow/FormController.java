@@ -18,14 +18,15 @@ public class FormController {
 
 	@Autowired IWorkflowService workflowService;
 	
-	@RequestMapping(params="getForm")
-	public @ResponseBody Form getForm(Long workflowId){
+	@RequestMapping(params="get")
+	public @ResponseBody Form get(Long workflowId){
 		return workflowService.getForm(workflowId);
 	}
 	
-	@RequestMapping(params="setForm")
-	public @ResponseBody Result setForm(Long workflowId, Form form){
-		workflowService.setForm(workflowId, form);
+	//更新表单，表单在创建流程的时候已定义
+	@RequestMapping(params="update")
+	public @ResponseBody Result update(Form form, String fieldIds){
+		workflowService.updateForm(form, fieldIds);
 		return Result.success();
 	}
 	

@@ -1,5 +1,6 @@
 package com.pony.oa.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -9,16 +10,26 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.pony.core.entity.BaseEntity;
 
 @Entity
 @Table(name="oa_form")
+@JsonIgnoreProperties({"fields"})
 public class Form extends BaseEntity{
 
 	private	Workflow	workflow; 	//对应流程
 	private	String		template;	//表单采用模板
-	private	List<Field>	fields; 	//表单字段列表
+	private	List<Field>	fields = new ArrayList<Field>(); 	//表单字段列表
 
+	public void addField(Field field){
+		fields.add(field);
+	}
+	
+	public void removeField(Field field){
+		fields.remove(field);
+	}
+	
 	@OneToOne(mappedBy="form",fetch=FetchType.LAZY)
 	public Workflow getWorkflow() {
 		return workflow;

@@ -3,7 +3,7 @@ Ext.define('App.controller.WorkflowController', {
     
     views: ['workflow.IndexView','workflow.CreateView','workflow.SeeXmlView','workflow.SeeImgView','workflow.SetFormView'],
     
-    stores: ['workflow.WorkflowStore'],
+    stores: ['workflow.WorkflowStore','workflow.FieldStore'],
     
     init: function() {
         

@@ -57,6 +57,7 @@ public class WorkflowServiceImpl implements IWorkflowService {
 			workflow.setName(name);
 			workflow.setDesc(desc);
 			workflow.setXml(xmlData);
+			workflow.setForm(new Form()); //创建时定义一个空的表单对象
 			dao.save(workflow);
 		}else{
 			workflow.setDesc(desc);
@@ -76,6 +77,7 @@ public class WorkflowServiceImpl implements IWorkflowService {
 			workflow.setDesc(desc);
 			workflow.setXml(xmlData);
 			workflow.setImg(imgData);
+			workflow.setForm(new Form()); //创建时定义一个空的表单对象
 			dao.save(workflow);
 		}else{
 			workflow.setDesc(desc);
@@ -129,10 +131,35 @@ public class WorkflowServiceImpl implements IWorkflowService {
 		Workflow workflow = dao.find(Workflow.class, workflowId);
 		return workflow.getForm();
 	}
-
-	public void setForm(Long workflowId, Form form) {
-		Workflow workflow = dao.find(Workflow.class, workflowId);
-		workflow.setForm(form);
+	
+	public void saveOrUpdateOptionList(List<Option> options){
+		if(options != null && options.size()>0){
+			for (Option option : options) {
+				if(option.getId() == null){
+					dao.save(option);
+				}else{
+					Option entity = dao.find(Option.class, option.getId());
+					entity.setValue(option.getValue());
+					entity.setLabel(option.getLabel());
+					dao.update(entity);
+				}
+			}
+		}
+	}
+	
+	public void updateForm(Form form, String fieldIds){
+		Form entity  =  dao.find(Form.class, form.getId());
+		entity.setTemplate(form.getTemplate());
+		if(StringUtils.isNoneBlank(fieldIds)){
+			String[] ids = fieldIds.split(",");
+			//dao.findList("from Field f where f.id in (?1)", new Object[]{ids});
+			for (String idStr : ids) {
+				Long id = Long.valueOf(idStr);
+				Field field = dao.find(Field.class, id);
+				form.addField(field);
+			}
+		}
+		dao.update(entity);
 	}
 	
 	public List<ValueLabel> getAllFormTpl(){

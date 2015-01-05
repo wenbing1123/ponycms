@@ -10,10 +10,12 @@ import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.pony.core.entity.BaseEntity;
 
 @Entity
 @Table(name="oa_workflow")
+@JsonIgnoreProperties({"xml","img"})
 public class Workflow extends BaseEntity {
 
 	private String	name;	//名称
