@@ -2,6 +2,7 @@ package com.pony.core.facade.impl;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +18,12 @@ import org.activiti.engine.ManagementService;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
+import org.activiti.engine.impl.RepositoryServiceImpl;
+import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
+import org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntity;
+import org.activiti.engine.impl.pvm.PvmActivity;
+import org.activiti.engine.impl.pvm.PvmTransition;
+import org.activiti.engine.impl.pvm.process.ActivityImpl;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.repository.ProcessDefinitionQuery;
@@ -28,6 +35,12 @@ import org.springframework.stereotype.Service;
 
 import com.pony.core.facade.ActivitiFacade;
 
+/**
+ * 
+ * Activiti之流程通过、驳回、会签、转办、中止、挂起等核心操作:http://www.tuicool.com/articles/juaUVvm
+ * @author scott
+ *
+ */
 @Service("activitiFacade")
 @Transactional
 public class ActivitiFacadeImpl implements ActivitiFacade{
@@ -273,7 +286,28 @@ public class ActivitiFacadeImpl implements ActivitiFacade{
 	}
 
 	public List<String> searchNextTransitions(String instanceId, String userId) {
-		return null;
+		List<String> transitionNames = new ArrayList<String>();
+		//流程定义标识
+		String definitionId = historyService.createHistoricProcessInstanceQuery().processInstanceId(instanceId).singleResult().getProcessDefinitionId();
+		//流程定义实体
+		ProcessDefinitionEntity definition =(ProcessDefinitionEntity) ((RepositoryServiceImpl)repositoryService).getDeployedProcessDefinition(definitionId);
+		//执行实例
+		ExecutionEntity execution = (ExecutionEntity)runtimeService.createProcessInstanceQuery().processInstanceId(instanceId).singleResult();
+		//当前实例的执行到哪个节点 
+		String activitiId = execution.getActivityId();
+		//获得流程定义的所有节点 
+		List<ActivityImpl> activitiList = definition.getActivities();
+		for (ActivityImpl activityImpl : activitiList) {
+			if(activitiId.equals(activityImpl.getId())){
+				List<PvmTransition> outTransitions = activityImpl.getOutgoingTransitions();
+				for (PvmTransition pvmTransition : outTransitions) {
+					PvmActivity ac = pvmTransition.getDestination(); //获取线路的终点节点  
+					transitionNames.add(String.valueOf(ac.getProperty("name")));
+				}
+				break;
+			}
+		}
+		return transitionNames;
 	}
 
 	public String nextStep(String instanceId, String userId,String transitionName) {
