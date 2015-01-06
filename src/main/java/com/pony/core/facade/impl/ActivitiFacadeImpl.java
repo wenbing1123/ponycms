@@ -45,6 +45,10 @@ import com.pony.core.facade.ActivitiFacade;
 /**
  * 
  * Activiti之流程通过、驳回、会签、转办、中止、挂起等核心操作:http://www.tuicool.com/articles/juaUVvm
+ * 
+ * 串签：一个环节一个环节往下签。
+ * 并签：几个环节同步或几个人同时签。
+ * 会签：几个人随机签，签好可继续会签，循环往复。
  * @author scott
  *
  */
@@ -192,7 +196,7 @@ public class ActivitiFacadeImpl implements ActivitiFacade{
 		
 		ProcessInstance processInstance = 
 			runtimeService.startProcessInstanceByKey(processDefinitionKey, variables);
-		
+	
 		return processInstance.getProcessInstanceId();
 	}
 	
@@ -385,7 +389,7 @@ public class ActivitiFacadeImpl implements ActivitiFacade{
 		return activityImpl;
 	}
 	/**
-	 * 提交流程操作，即下一步
+	 * 提交流程操作，确定下一步流向
 	 * 
 	 * @param taskId
 	 * @param variables
@@ -418,14 +422,14 @@ public class ActivitiFacadeImpl implements ActivitiFacade{
         TransitionImpl newTransition = currActivity.createOutgoingTransition();
         // 目标节点  
         ActivityImpl pointActivity = findActivitiImpl(taskId, activityId);
-       // 设置新流向的目标节点  
-       newTransition.setDestination(pointActivity); 
-       // 执行转向任务  
-       taskService.complete(taskId, variables);
-       // 删除目标节点新流入  
-       pointActivity.getIncomingTransitions().remove(newTransition);
-       // 还原以前流向  
-       restoreTransition(currActivity, oriPvmTransitionList);
+        // 设置新流向的目标节点  
+        newTransition.setDestination(pointActivity); 
+        // 执行转向任务  
+        taskService.complete(taskId, variables);
+        // 删除目标节点新流入  
+        pointActivity.getIncomingTransitions().remove(newTransition);
+        // 还原以前流向  
+        restoreTransition(currActivity, oriPvmTransitionList);
 	}
 	/**
 	 * 清空指定活动节点流向 
