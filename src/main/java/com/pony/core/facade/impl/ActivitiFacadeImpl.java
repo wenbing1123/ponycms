@@ -46,9 +46,15 @@ import com.pony.core.facade.ActivitiFacade;
  * 
  * Activiti之流程通过、驳回、会签、转办、中止、挂起等核心操作:http://www.tuicool.com/articles/juaUVvm
  * 
+ * 任务类型:
  * 串签：一个环节一个环节往下签。
  * 并签：几个环节同步或几个人同时签。
  * 会签：几个人随机签，签好可继续会签，循环往复。
+ * 操作类型:
+ * 通过、驳回（退回、取回）、转办、委派、中止、挂起
+ * 流程执行语义三要素:
+ * 活动（Task、Sequence-Flow、Sub-Process）、网关（Parallel、Exclusive、Inclusive）、事件（Start、End等）
+ *
  * @author scott
  *
  */
@@ -193,7 +199,6 @@ public class ActivitiFacadeImpl implements ActivitiFacade{
 
 	public String startProcessInstance(String processDefinitionKey, String userId, Map<String, Object> variables) {
 		identityService.setAuthenticatedUserId(userId); //指定启动用户
-		
 		ProcessInstance processInstance = 
 			runtimeService.startProcessInstanceByKey(processDefinitionKey, variables);
 	
@@ -386,6 +391,7 @@ public class ActivitiFacadeImpl implements ActivitiFacade{
 			}
 		}
 		ActivityImpl activityImpl = ((ProcessDefinitionImpl) processDefinition).findActivity(activityId);
+		
 		return activityImpl;
 	}
 	/**
