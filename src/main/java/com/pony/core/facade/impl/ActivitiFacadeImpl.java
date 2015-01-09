@@ -72,7 +72,7 @@ public class ActivitiFacadeImpl implements ActivitiFacade{
 	@Resource private HistoryService historyService;
 	@Resource private ManagementService managementService;
 	
-	public void deployProcessDefinition(String name, String xmlName, byte[] xmlData) {
+	public void deploy(String name, String xmlName, byte[] xmlData) {
 		
 		//部署流程定义
 		repositoryService
@@ -83,7 +83,7 @@ public class ActivitiFacadeImpl implements ActivitiFacade{
 		
 	}
 	
-	public void deployProcessDefinition(String name, String xmlName, byte[] xmlData, String imgName, byte[] imgData){
+	public void deploy(String name, String xmlName, byte[] xmlData, String imgName, byte[] imgData){
 		
 		//部署流程定义
 		repositoryService
@@ -95,7 +95,7 @@ public class ActivitiFacadeImpl implements ActivitiFacade{
 				
 	}
 	
-	public void deployProcessDefinition(String classpathXml){
+	public void deploy(String classpathXml){
 		
 		//部署流程定义
 		repositoryService
@@ -105,7 +105,7 @@ public class ActivitiFacadeImpl implements ActivitiFacade{
 		
 	}
 	
-	public void deployProcessDefinition(String classpathXml, String classpathImg){
+	public void deploy(String classpathXml, String classpathImg){
 
 		//部署流程定义
 		repositoryService
@@ -116,7 +116,7 @@ public class ActivitiFacadeImpl implements ActivitiFacade{
 		
 	}
 
-	public void deployProcessDefinition(String name, ZipInputStream zipDefinition) {
+	public void deploy(String name, ZipInputStream zipDefinition) {
 
 		//部署流程定义
 		repositoryService
@@ -127,7 +127,7 @@ public class ActivitiFacadeImpl implements ActivitiFacade{
 		
 	}
 	
-	public void undeployProcessDefinition(String name){
+	public void undeploy(String name){
 		
 		//获取流程部署
 		List<Deployment> deployments = 
@@ -145,7 +145,7 @@ public class ActivitiFacadeImpl implements ActivitiFacade{
 		
 	}
 
-	public void undeployProcessDefinition(String name, boolean cascade) {
+	public void undeploy(String name, boolean cascade) {
 		
 		//获取流程部署
 		List<Deployment> deployments = 
@@ -161,6 +161,13 @@ public class ActivitiFacadeImpl implements ActivitiFacade{
 			}
 		}
 		
+	}
+	
+	public String start(String userId, String processId, Map<String,Object> variables){
+		identityService.setAuthenticatedUserId(userId); //登录流程引擎
+		ProcessInstance processInstance = 
+				runtimeService.startProcessInstanceByKey(processId, variables);
+		return processInstance.getId();
 	}
 
 	//=================>
@@ -466,5 +473,33 @@ public class ActivitiFacadeImpl implements ActivitiFacade{
         for (PvmTransition pvmTransition : oriPvmTransitionList) {  
             pvmTransitionList.add(pvmTransition);  
         }  
+	}
+
+	public List<String> getNextStepList(String taskId) {
+		return null;
+	}
+
+	public String nextStep(String taskId, String stepName,Map<String, Object> variables) {
+		return null;
+	}
+
+	public String backStep(String taskId, String stepName,Map<String, Object> variables) {
+		return null;
+	}
+
+	public void jointSign(String taskId, List<String> userIds) {
+		
+	}
+
+	public void delegate(String taskId, String userId) {
+		
+	}
+
+	public void assign(String taskId, String userId) {
+		
+	}
+
+	public void claim(String taskId) {
+		
 	}
 }

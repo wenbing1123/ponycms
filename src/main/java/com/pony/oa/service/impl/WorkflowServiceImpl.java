@@ -49,7 +49,7 @@ public class WorkflowServiceImpl implements IWorkflowService {
 	
 	public void saveOrUpdate(String name, String desc, String xmlName, byte[] xmlData){
 		//部署流程
-		activitiFacade.deployProcessDefinition(name,xmlName,xmlData);
+		activitiFacade.deploy(name,xmlName,xmlData);
 		//保存记录
 		Workflow workflow = dao.findOne("from Workflow w where w.name=?", "");
 		if(workflow == null){
@@ -68,7 +68,7 @@ public class WorkflowServiceImpl implements IWorkflowService {
 	
 	public void saveOrUpdate(String name, String desc, String xmlName, byte[] xmlData, String imgName, byte[] imgData) {
 		//部署流程
-		activitiFacade.deployProcessDefinition(name,xmlName,xmlData,imgName,imgData);
+		activitiFacade.deploy(name,xmlName,xmlData,imgName,imgData);
 		//保存记录
 		Workflow workflow = dao.findOne("from Workflow w where w.name=?", "");
 		if(workflow == null){
@@ -89,7 +89,7 @@ public class WorkflowServiceImpl implements IWorkflowService {
 
 	public void remove(Long id) {
 		Workflow workflow = dao.find(Workflow.class, id);
-		activitiFacade.undeployProcessDefinition(workflow.getName());
+		activitiFacade.undeploy(workflow.getName());
 		dao.remove(workflow);
 	}
 

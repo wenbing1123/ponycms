@@ -32,7 +32,7 @@ public interface ActivitiFacade {
 	 * @param xmlName 流程定义xml名称
 	 * @param xmlData 流程定义xml数据
 	 */
-	public void deployProcessDefinition(String name, String xmlName, byte[] xmlData);
+	public void deploy(String name, String xmlName, byte[] xmlData);
 	
 	/**
 	 * 根据流程定义xml及img来部署流程定义
@@ -44,14 +44,14 @@ public interface ActivitiFacade {
 	 * @param imgData 流程定义img数据
 	 * @return
 	 */
-	public void deployProcessDefinition(String name, String xmlName, byte[] xmlData, String imgName, byte[] imgData);
+	public void deploy(String name, String xmlName, byte[] xmlData, String imgName, byte[] imgData);
 	
 	/**
 	 * 根据流程定义xml的Classpath路径来部署流程定义
 	 * 
 	 * @param classpathXml
 	 */
-	public void deployProcessDefinition(String classpathXml);
+	public void deploy(String classpathXml);
 	
 	/**
 	 * 根据流程定义xml及img的Classpath路径来部署流程定义
@@ -59,7 +59,7 @@ public interface ActivitiFacade {
 	 * @param classpathXml
 	 * @param classpathImg
 	 */
-	public void deployProcessDefinition(String classpathXml, String classpathImg);
+	public void deploy(String classpathXml, String classpathImg);
 	
 	/**
 	 * 根据流程定义ZIP包部署流程定义,部署单个流程
@@ -67,14 +67,14 @@ public interface ActivitiFacade {
 	 * @param name 流程部署名称
 	 * @param zipData 流程定义ZIP包
 	 */
-	public void deployProcessDefinition(String name, ZipInputStream zipData);
+	public void deploy(String name, ZipInputStream zipData);
 	
 	/**
 	 * 删除流程定义
 	 * 
 	 * @param 流程定义名称
 	 */
-	public void undeployProcessDefinition(String name);
+	public void undeploy(String name);
 	
 	/**
 	 * 删除流程定义
@@ -82,7 +82,75 @@ public interface ActivitiFacade {
 	 * @param 流程定义名称
 	 * @param cascade Deletes the given deployment and cascade deletion to process instances, history process instances and jobs.
 	 */
-	public void undeployProcessDefinition(String name, boolean cascade);
+	public void undeploy(String name, boolean cascade);
+	
+	/**
+	 * 启动流程
+	 * @param userId 	启动用户ID
+	 * @param processId 流程ID,XML中定义的id:<process id="myProcess" name="My important process">
+	 * @param variables 流程变量
+	 * @return 流程执行实例ID
+	 */
+	public String start(String userId, String processId, Map<String,Object> variables);
+	
+	/**
+	 * 获取一下步流向列表
+	 * 
+	 * @param taskId 当前任务ID
+	 * @return 流程名称列表
+	 */
+	public List<String> getNextStepList(String taskId);
+	
+	/**
+	 * 执行下一步操作
+	 * 
+	 * @param taskId 当前任务ID
+	 * @param stepName 下一步名称
+	 * @param variables 传递变量
+	 * @return 目标节点名称
+	 */
+	public String nextStep(String taskId, String stepName, Map<String,Object> variables);
+	
+	/**
+	 * 执行回退操作
+	 * 
+	 * @param taskId 当前任务ID
+	 * @param stepName 下一步名称
+	 * @param variables 传递变量
+	 * @return 目标节点名称
+	 */
+	public String backStep(String taskId, String stepName, Map<String,Object> variables);
+	
+	/**
+	 * 执行会签操作
+	 * 
+	 * @param taskId 当前任务ID
+	 * @param userIds 会签人员ID列表
+	 */
+	public void jointSign(String taskId, List<String> userIds);
+	
+	/**
+	 * 执行任务委派
+	 * 
+	 * @param taskId 当前任务ID
+	 * @param userId 委派人Id
+	 */
+	public void delegate(String taskId, String userId);
+	
+	/**
+	 * 执行任务交办（转办）
+	 * 
+	 * @param taskId
+	 * @param userId
+	 */
+	public void assign(String taskId, String userId);
+	
+	/**
+	 * 领取任务
+	 * 
+	 * @param taskId
+	 */
+	public void claim(String taskId);
 	
 	//=============================================================================
 	
