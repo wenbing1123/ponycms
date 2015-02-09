@@ -85,13 +85,21 @@ public interface ActivitiFacade {
 	public void undeploy(String name, boolean cascade);
 	
 	/**
+	 * 获取流程定义图表
+	 * 
+	 * @param definitionId 定义Id
+	 * @return
+	 */
+	public InputStream getDefinitionDiagram(String definitionId);
+	
+	/**
 	 * 启动流程
 	 * @param userId 	启动用户ID
-	 * @param processId 流程ID,XML中定义的id:<process id="myProcess" name="My important process">
+	 * @param definitionId 流程ID,XML中定义的id:<process id="myProcess" name="My important process">
 	 * @param variables 流程变量
 	 * @return 流程执行实例ID
 	 */
-	public String start(String userId, String processId, Map<String,Object> variables);
+	public String start(String userId, String definitionId, Map<String,Object> variables);
 	
 	/**
 	 * 获取一下步流向列表
@@ -151,6 +159,14 @@ public interface ActivitiFacade {
 	 * @param taskId
 	 */
 	public void claim(String taskId);
+	
+	/**
+	 * 获取流程实例图表
+	 * 
+	 * @param instanceId 实例Id
+	 * @return
+	 */
+	public InputStream getInstanceDiagram(String instanceId);
 	
 	//=============================================================================
 	

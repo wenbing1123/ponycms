@@ -163,10 +163,10 @@ public class ActivitiFacadeImpl implements ActivitiFacade{
 		
 	}
 	
-	public String start(String userId, String processId, Map<String,Object> variables){
+	public String start(String userId, String definitionId, Map<String,Object> variables){
 		identityService.setAuthenticatedUserId(userId); //登录流程引擎
 		ProcessInstance processInstance = 
-				runtimeService.startProcessInstanceByKey(processId, variables);
+				runtimeService.startProcessInstanceByKey(definitionId, variables);
 		return processInstance.getId();
 	}
 
@@ -501,5 +501,13 @@ public class ActivitiFacadeImpl implements ActivitiFacade{
 
 	public void claim(String taskId) {
 		
+	}
+
+	public InputStream getInstanceDiagram(String instanceId) {
+		return null;
+	}
+
+	public InputStream getDefinitionDiagram(String definitionId) {
+		return null;
 	}
 }
